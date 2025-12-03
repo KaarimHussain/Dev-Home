@@ -51,7 +51,7 @@ export default function About() {
                         className="relative"
                     >
                         <div className="absolute -left-4 top-0 w-1 h-full bg-linear-to-b from-primary via-primary/50 to-transparent rounded-full" />
-                        <h2 className="lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-semibold text-black/90 leading-relaxed pl-6">
+                        <h2 className="lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-semibold text-black/90 leading-tight pl-6">
                             I'm a passionate{" "}
                             <span className="text-primary font-bold relative inline-block">
                                 software engineer
