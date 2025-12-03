@@ -1,9 +1,9 @@
-export default function Experience(){
-    return(
+export default function Experience() {
+    return (
         <>
-        <div className="min-h-screen w-full">
-            
-        </div>
+            <div className="min-h-screen w-full">
+                
+            </div>
         </>
     )
 }
