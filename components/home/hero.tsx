@@ -3,7 +3,7 @@
 // SVGS
 import React from "@/public/svgs/React.svg";
 import NodeJs from "@/public/svgs/NodeJs.svg";
-import Express from "@/public/svgs/Express.svg";
+import Express from "@/public/svgs/Express-Dark.svg";
 import DotNet from "@/public/svgs/Dotnet.svg";
 import MongoDb from "@/public/svgs/MongoDb.svg";
 

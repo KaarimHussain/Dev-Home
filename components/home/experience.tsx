@@ -420,12 +420,12 @@ export default function Experience() {
                     className="mb-16"
                 >
                     <div className="flex items-center gap-5 mb-8">
-                        <span className="font-mono text-primary font-bold lg:text-7xl md:text-6xl sm:text-5xl text-4xl">
+                        <span className="font-fira text-primary font-bold lg:text-7xl md:text-6xl sm:text-5xl text-4xl">
                             03
                         </span>
-                        <div className="lg:h-15 md:h-10 h-7 bg-primary w-1 rounded-full"></div>
-                        <div className="border border-primary/50 bg-primary/5 rounded-full px-4 py-1.5 text-xs text-primary font-mono backdrop-blur-sm">
-                            Experience
+                        <div className="lg:h-15 md:h-10 h-7 bg-primary w-1"></div>
+                        <div className="border border-primary/50 bg-primary/5 rounded-full px-3 text-xs w-fit text-primary font-fira">
+                            Experiences
                         </div>
                     </div>
 

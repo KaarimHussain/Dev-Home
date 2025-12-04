@@ -13,17 +13,62 @@ import Express from "@/public/svgs/Express.svg";
 import DotNet from "@/public/svgs/Dotnet.svg";
 import MongoDb from "@/public/svgs/MongoDb.svg";
 import NextJs from "@/public/svgs/NextJs.svg";
+import JavaScript from "@/public/svgs/JavaScript.svg";
+import TypeScript from "@/public/svgs/Typescript.svg";
+import Csharp from "@/public/svgs/Csharp.svg";
+import Dart from "@/public/svgs/Dart.svg";
+import PHP from "@/public/svgs/PHP.svg";
+import SqlServer from "@/public/svgs/SQL-Server.svg";
+import MySQL from "@/public/svgs/MySQL.svg";
+import PostgreSQL from "@/public/svgs/PostgreSQL.svg";
+import Firebase from "@/public/svgs/Firebase.svg";
+import Angular from "@/public/svgs/Angular.svg";
+import Flutter from "@/public/svgs/Flutter.svg";
+import Jquery from "@/public/svgs/Jquery.svg"
+import JWT from "@/public/svgs/JWT.svg"
+import Wordpress from "@/public/svgs/Wordpress.svg"
+import Elementor from "@/public/svgs/Elementor.svg"
+import Bootstrap from "@/public/svgs/Bootstrap.svg"
+import TailwindCss from "@/public/svgs/TailwindCss.svg"
+import Shadncn from "@/public/svgs/Shadncn.svg"
+import Motion from "@/public/svgs/Motion.svg"
+
+// AI & Tools
+import OpenAI from "@/public/svgs/OpenAI.svg";
+import Claude from "@/public/svgs/Claude.svg";
+import Gemini from "@/public/svgs/Gemini.svg";
+import Ollama from "@/public/svgs/Ollama.svg";
+import GitHubCopilot from "@/public/svgs/Copilot.svg";
+import Github from "@/public/svgs/Github.svg";
+import Git from "@/public/svgs/Git.svg";
+import Qwen from "@/public/svgs/Qwen.svg";
+import Perplexity from "@/public/svgs/Perplexity.svg";
+import Kimi from "@/public/svgs/Kimi.svg";
+import Grok from "@/public/svgs/Grok.svg";
+import Windsurf from "@/public/svgs/Windsurf.svg"
+import Powerpoint from "@/public/svgs/Power-Point.svg"
+import Word from "@/public/svgs/Word.svg"
+import Excel from "@/public/svgs/Excel.svg"
+import Figma from "@/public/svgs/Figma.svg"
+import Canva from "@/public/svgs/Canva.svg"
+import Discord from "@/public/svgs/Discord.svg"
+import Cursor from "@/public/svgs/Cursor.svg"
+import VisualStudioCode from "@/public/svgs/Visual-Studio-Code.svg"
+import VisualStudio from "@/public/svgs/Visual-Studio.svg"
+import Notion from "@/public/svgs/Notion.svg"
 
 const techStack = {
     languages: [
-        { name: "JavaScript", color: "#F7DF1E" },
-        { name: "TypeScript", color: "#3178C6" },
-        { name: "Python", color: "#3776AB" },
-        { name: "C#", color: "#239120" },
-        { name: "Java", color: "#ED8B00" },
-        { name: "Dart", color: "#0175C2" },
-        { name: "PHP", color: "#777BB4" },
-        { name: "SQL", color: "#336791" },
+        { name: "JavaScript", icon: JavaScript, color: "#F7DF1E" },
+        { name: "TypeScript", icon: TypeScript, color: "#3178C6" },
+        { name: "C#", icon: Csharp, color: "#239120" },
+        { name: "Dart", icon: Dart, color: "#0175C2" },
+        { name: "PHP", icon: PHP, color: "#777BB4" },
+        { name: "SQL Server", icon: SqlServer, color: "#336791" },
+        { name: "MySQL", icon: MySQL, color: "#336791" },
+        { name: "PostgreSQL", icon: PostgreSQL, color: "#336791" },
+        { name: "MongoDB", icon: MongoDb, color: "#47A248" },
+        { name: "Firebase", icon: Firebase, color: "#FFCA28" },
     ],
     frameworks: [
         { name: "React", icon: React, color: "#61DAFB" },
@@ -31,27 +76,43 @@ const techStack = {
         { name: "Node.js", icon: NodeJs, color: "#339933" },
         { name: "Express", icon: Express, color: "#000000" },
         { name: ".NET Core", icon: DotNet, color: "#512BD4" },
-        { name: "Angular", color: "#DD0031" },
-        { name: "Flutter", color: "#02569B" },
-        { name: "FastAPI", color: "#009688" },
-        { name: "MongoDB", icon: MongoDb, color: "#47A248" },
-        { name: "PostgreSQL", color: "#336791" },
-        { name: "Firebase", color: "#FFCA28" },
-        { name: "AWS", color: "#232F3E" },
+        { name: "Angular", icon: Angular, color: "#DD0031" },
+        { name: "Flutter", icon: Flutter, color: "#02569B" },
+        { name: "JQuery", icon: Jquery, color: "#3178C6" },
+        { name: "JWT", icon: JWT, color: "#3178C6" },
+        { name: "Wordpress", icon: Wordpress, color: "#3178C6" },
+        { name: "Elementor", icon: Elementor, color: "#3178C6" },
+        { name: "Bootstrap", icon: Bootstrap, color: "#336791" },
+        { name: "TailwindCss", icon: TailwindCss, color: "#336791" },
+        { name: "Shadcn/ui", icon: Shadncn, color: "#336791" },
+        { name: "Motion", icon: Motion, color: "#336791" },
+
     ],
     designTools: [
-        { name: "Figma", color: "#F24E1E" },
-        { name: "Adobe XD", color: "#FF61F6" },
-        { name: "Photoshop", color: "#31A8FF" },
-        { name: "Illustrator", color: "#FF9A00" },
-        { name: "Canva", color: "#00C4CC" },
+        { name: "Figma", icon: Figma, color: "#F24E1E" },
+        { name: "Canva", icon: Canva, color: "#00C4CC" },
     ],
     aiTools: [
-        { name: "ChatGPT", color: "#10A37F" },
-        { name: "Claude", color: "#8B5CF6" },
-        { name: "Gemini", color: "#4285F4" },
-        { name: "Ollama", color: "#111827" },
-        { name: "GitHub Copilot", color: "#3B82F6" },
+        { name: "OpenAI", icon: OpenAI, color: "#10A37F" },
+        { name: "Claude", icon: Claude, color: "#8B5CF6" },
+        { name: "Gemini", icon: Gemini, color: "#4285F4" },
+        { name: "Ollama", icon: Ollama, color: "#111827" },
+        { name: "GitHub Copilot", icon: GitHubCopilot, color: "#3B82F6" },
+        { name: "Github", icon: Github, color: "#3B82F6" },
+        { name: "Git", icon: Git, color: "#3B82F6" },
+        { name: "Qwen", icon: Qwen, color: "#3B82F6" },
+        { name: "Perplexity", icon: Perplexity, color: "#3B82F6" },
+        { name: "Kimi", icon: Kimi, color: "#3B82F6" },
+        { name: "Grok", icon: Grok, color: "#3B82F6" },
+        { name: "Windsurf", icon: Windsurf, color: "#3B82F6" },
+        { name: "PowerPoint", icon: Powerpoint, color: "#3B82F6" },
+        { name: "Word", icon: Word, color: "#3B82F6" },
+        { name: "Excel", icon: Excel, color: "#3B82F6" },
+        { name: "Discord", icon: Discord, color: "#3178C6" },
+        { name: "Cursor", icon: Cursor, color: "#336791" },
+        { name: "Visual Studio", icon: VisualStudio, color: "#336791" },
+        { name: "Visual Studio Code", icon: VisualStudioCode, color: "#336791" },
+        { name: "Notion", icon: Notion, color: "#336791" },
     ],
 };
 
@@ -168,7 +229,7 @@ export default function Techstack() {
                             <div className="p-2 bg-primary/10 rounded-lg">
                                 <Code2 className="w-6 h-6 text-primary" />
                             </div>
-                            <h3 className="text-2xl font-bold text-black">Languages</h3>
+                            <h3 className="text-2xl font-bold text-black">Languages & Databases</h3>
                             <div className="flex-1 h-px bg-linear-to-r from-primary/40 to-transparent"></div>
                         </div>
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4">
@@ -220,7 +281,7 @@ export default function Techstack() {
                             <div className="p-2 bg-primary/10 rounded-lg">
                                 <Sparkles className="w-6 h-6 text-primary" />
                             </div>
-                            <h3 className="text-2xl font-bold text-black">AI Tools</h3>
+                            <h3 className="text-2xl font-bold text-black">AI & Dev Tools</h3>
                             <div className="flex-1 h-px bg-linear-to-r from-primary/40 to-transparent"></div>
                         </div>
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
