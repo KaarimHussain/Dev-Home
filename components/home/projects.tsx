@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import Badge from "@/public/svgs/Badge.svg";
+import Link from "next/link";
 
 const dummyProjects = [
     {
@@ -62,7 +62,7 @@ export default function Projects() {
     return (
         <div className="min-h-screen bg-white relative">
             <div
-                className="min-h-screen w-full bg-linear-to-b from-black to-black/95  px-5 md:px-10 lg:px-20 xl:px-32 py-20 relative overflow-hidden rounded-[50px]"
+                className="min-h-screen w-full bg-linear-to-b from-black to-black/95 px-5 md:px-10 lg:px-20 xl:px-32 py-20 relative overflow-hidden rounded-[50px]"
             >
                 <div className="mb-16">
                     <h5 className="text-lg text-white/70 font-inter mb-5 flex items-center gap-5">
@@ -129,6 +129,13 @@ export default function Projects() {
                             )}
                         </div>
                     ))}
+                </div>
+                <div className="w-full flex items-center justify-center">
+                    <Link href={""} className="mx-auto">
+                        <Button size={"lg"}>
+                            View All Projects
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </div>

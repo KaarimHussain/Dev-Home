@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -24,11 +25,11 @@ export default function Navbar() {
   }, []);
 
   const links = [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Projects", href: "#projects" },
-    { label: "Skills", href: "#skills" },
-    { label: "Contact", href: "#contact" },
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Projects", href: "/projects" },
+    { label: "Skills", href: "/skills" },
+    { label: "Contact", href: "/contact" },
   ];
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -36,13 +37,13 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`w-full fixed top-0 left-0 z-50 transition-all duration-300 ${isScrolled
-          ? "bg-black/80 backdrop-blur-lg border-b border-white/10 shadow-lg shadow-black/20"
+        className={`w-full fixed top-0 left-0 z-50 transition-all duration-100 ${isScrolled
+          ? "bg-black/80 backdrop-blur-lg shadow-lg shadow-black/20"
           : "bg-transparent"
           }`}
       >
         <div
-          className={`container mx-auto px-5 md:px-10 lg:px-20 xl:px-32 transition-all duration-300 ${isScrolled ? "py-3" : "py-5"
+          className={`container mx-auto px-5 md:px-10 lg:px-20 xl:px-32 transition-all duration-100 ${isScrolled ? "py-3" : "py-5"
             }`}
         >
           <div className="flex items-center justify-between lg:grid lg:grid-cols-3 lg:gap-4">
@@ -64,14 +65,14 @@ export default function Navbar() {
             {/* Links - Center (Desktop Only) */}
             <nav className="hidden lg:flex gap-6 items-center justify-center">
               {links.map((data, index) => (
-                <a
+                <Link
                   className="text-white/70 hover:text-white font-light transition-all duration-200 whitespace-nowrap text-sm relative group"
                   href={data.href}
                   key={index}
                 >
                   {data.label}
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-                </a>
+                </Link>
               ))}
             </nav>
 
