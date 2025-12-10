@@ -323,20 +323,6 @@ export default function Techstack() {
                         </div>
                     </motion.div>
                 </div>
-
-                {/* Bottom Decorative Element */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? { opacity: 1 } : {}}
-                    transition={{ duration: 1, delay: 1.5 }}
-                    className="flex justify-center mt-20"
-                >
-                    <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-primary/40 rounded-full animate-pulse" />
-                        <div className="w-16 h-px bg-linear-to-r from-primary/40 to-transparent" />
-                        <div className="w-2 h-2 bg-primary/40 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
-                    </div>
-                </motion.div>
             </div>
         </>
     )

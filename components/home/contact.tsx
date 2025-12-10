@@ -62,7 +62,7 @@ export default function Contact() {
 
     return (
         <>
-            <div className="min-h-screen w-full px-5 md:px-10 lg:px-20 xl:px-32 py-20 relative overflow-hidden bg-white">
+            <div className="min-h-[50vh] w-full px-5 md:px-10 lg:px-20 xl:px-32 py-20 relative overflow-hidden bg-white">
                 <ContactCard
                     contactInfo={[
                         {

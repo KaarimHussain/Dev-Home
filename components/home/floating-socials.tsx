@@ -36,7 +36,7 @@ export default function FloatingSocials() {
                 <div className="absolute inset-0 bg-primary/30 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                 {/* Main container */}
-                <div className="relative backdrop-blur-md bg-black/80 border border-white/10 rounded-full px-6 py-3 shadow-2xl">
+                <div className="relative backdrop-blur-md bg-black/80 border border-white/10 rounded-full px-1 py-1 shadow-2xl">
                     {/* Gradient border effect */}
                     <div className="absolute inset-0 rounded-full bg-linear-to-r from-primary/20 via-primary/40 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm"></div>
 
@@ -50,7 +50,7 @@ export default function FloatingSocials() {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={social.label}
-                                    className="relative group/item p-2.5 rounded-full transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+                                    className="relative group/item p-2.5 rounded-full transition-all duration-300 "
                                 >
                                     {/* Icon background on hover */}
                                     <div className="absolute inset-0 bg-primary/20 rounded-full opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
