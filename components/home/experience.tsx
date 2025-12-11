@@ -77,7 +77,7 @@ function ExperienceCard({ exp, index, isInView }: ExperienceCardProps) {
             className="group relative"
         >
             {/* Main Card */}
-            <div className="relative bg-white rounded-xl p-6 md:p-8 shadow-sm border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all duration-300 overflow-hidden mx-auto">
+            <div className="relative bg-white rounded-xl p-6 md:p-8 shadow-sm border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all duration-300 overflow-hidden">
                 {/* Current Badge */}
                 {exp.current && (
                     <div className="absolute top-4 right-4 z-10">
@@ -192,7 +192,7 @@ export default function Experience() {
             </motion.div>
 
             {/* Experience Cards */}
-            <div className="space-y-6 max-w-4xl mx-auto">
+            <div className="space-y-6 px-5 md:px-10 lg:px-20 xl:px-32 py-20 mx-auto">
                 {experiences.map((exp, index) => (
                     <ExperienceCard key={exp.id} exp={exp} index={index} isInView={isInView} />
                 ))}

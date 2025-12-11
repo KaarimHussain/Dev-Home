@@ -43,7 +43,7 @@ export default function Navbar() {
           }`}
       >
         <div
-          className={`container mx-auto px-5 md:px-10 lg:px-20 xl:px-32 transition-all duration-100 ${isScrolled ? "py-3" : "py-5"
+          className={` mx-auto px-5 md:px-10 lg:px-20 xl:px-32 transition-all duration-100 ${isScrolled ? "py-3" : "py-5"
             }`}
         >
           <div className="flex items-center justify-between lg:grid lg:grid-cols-3 lg:gap-4">

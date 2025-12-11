@@ -2,10 +2,9 @@
 
 import { useState, useMemo } from "react"
 import { ArrowRight, X, Filter, Tag } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
-
 import { projects } from "@/lib/data"
+import Image from "next/image"
 
 const getUniqueTypes = (projectsList: typeof projects) => {
     return Array.from(new Set(projectsList.map((p) => p.category))).sort()
@@ -175,21 +174,27 @@ export default function ProjectsPage() {
                                         {/* Decoration */}
                                         <div className="absolute -top-15 -right-15 w-50 h-50 duration-300 transition-all ease-in-out group-hover:bg-primary/60 filter blur-3xl rounded-full"></div>
                                     </div>
-                                    <div className="flex items-center justify-between mt-10">
-                                        <div className="flex flex-col items-start justify-center gap-3">
-                                            <h2 className="text-5xl font-semibold">{project.title}</h2>
-                                            <p className="text-muted-foreground text-sm">{project.description}</p>
-                                            <div className="flex items-center gap-2">
+                                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between mt-10 gap-8 md:gap-10">
+                                        <div className={`flex flex-col items-start justify-center gap-3 shrink-0 ${project.type === "desktop" ? "md:w-2/5 lg:w-1/3" : "w-full md:w-2/5 lg:w-2/3"}`}>
+                                            <h2 className="text-4xl md:text-5xl font-semibold leading-tight">{project.title}</h2>
+                                            <p className="text-muted-foreground text-sm md:text-base">{project.description}</p>
+                                            <div className="flex flex-wrap gap-2 mt-2">
                                                 {project.tags.map((tag) => (
                                                     <span key={tag} className="px-3 py-1 rounded-full text-xs font-medium text-primary bg-primary/10 border border-primary">{tag}</span>
                                                 ))}
                                             </div>
                                         </div>
-                                        <div>
-                                            {project.type == "desktop" ? (
-                                                <img src={project.image} alt="" />
+                                        <div className={`grow flex justify-center ${project.type === "desktop" ? "md:w-3/5 lg:w-2/3 md:justify-end" : "w-full md:w-3/5 lg:w-3/5 md:justify-end"}`}>
+                                            {project.type === "desktop" ? (
+                                                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full">
+                                                    <img src={project.image} alt={`${project.title} screenshot 1`} width={400} height={225} className="aspect-video w-full sm:w-1/2 object-cover object-center rounded-lg shadow-lg -rotate-12 left-7 top-20 group-hover:top-0 group-hover:left-0 duration-200 transition-all relative" />
+                                                    <img src={project.image2} alt={`${project.title} screenshot 2`} width={600} height={337} className="aspect-video w-full sm:w-1/2 object-cover object-center rounded-lg shadow-lg rotate-12 right-7 top-20 group-hover:top-0 group-hover:right-0 duration-200 transition-all relative" />
+                                                </div>
                                             ) : (
-                                                <img src={project.image2} alt="" />
+                                                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full">
+                                                    <img src={project.image} alt={`${project.title} main image`} className="object-cover rounded-lg shadow-lg aspect-9/16 -rotate-12 left-7 top-20 group-hover:top-0 group-hover:left-0 duration-200 transition-all relative" width={200} />
+                                                    <img src={project.image2} alt={`${project.title} main image`} className="object-cover rounded-lg shadow-lg aspect-9/16 rotate-12 right-7 top-20 group-hover:top-0 group-hover:right-0 duration-200 transition-all relative" width={200} />
+                                                </div>
                                             )}
                                         </div>
                                     </div>
