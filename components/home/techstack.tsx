@@ -32,8 +32,6 @@ import Bootstrap from "@/public/svgs/Bootstrap.svg"
 import TailwindCss from "@/public/svgs/TailwindCss.svg"
 import Shadncn from "@/public/svgs/Shadncn.svg"
 import Motion from "@/public/svgs/Motion.svg"
-
-// AI & Tools
 import OpenAI from "@/public/svgs/OpenAI.svg";
 import Claude from "@/public/svgs/Claude.svg";
 import Gemini from "@/public/svgs/Gemini.svg";

@@ -166,9 +166,9 @@ export default function ProjectsPage() {
                         <div className="space-y-16">
                             {filteredProjects.map((project, index) => (
                                 <div key={index} className="group w-full bg-background rounded-lg border border-border hover:border-primary/50 p-5 overflow-hidden transition-all duration-200 cursor-pointer">
-                                    {/* Header */}
+                                    {/* Header */} 
                                     <div className="flex items-center justify-end gap-5 relative">
-                                        <Link className="relative z-1" href={"/projects/" + project.id}>
+                                        <Link className="relative z-1" href={"/project-details/" + project.id}>
                                             <ArrowRight className="cursor-pointer" size={30} />
                                         </Link>
                                         {/* Decoration */}

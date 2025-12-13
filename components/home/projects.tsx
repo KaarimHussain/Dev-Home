@@ -97,9 +97,9 @@ export default function Projects() {
                     ))}
                 </div>
                 <div className="w-full flex items-center justify-center">
-                    <Link href={""} className="mx-auto">
+                    <Link href={"/projects"} className="mx-auto">
                         <Button size={"lg"}>
-                            View All Projects
+                            <ArrowRight /> View All Projects
                         </Button>
                     </Link>
                 </div>

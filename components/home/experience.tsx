@@ -92,11 +92,11 @@ function ExperienceCard({ exp, index, isInView }: ExperienceCardProps) {
                     {/* Company & Position */}
                     <div className="flex items-start gap-3 mb-4">
                         <div className="p-3 bg-blue-50 rounded-lg shrink-0">
-                            <Briefcase className="w-5 h-5 text-blue-600" />
+                            <Briefcase className="w-5 h-5 text-primary" />
                         </div>
                         <div className="flex-1">
                             <h3 className="text-xl font-bold text-gray-900 mb-1">{exp.position}</h3>
-                            <p className="text-base font-semibold text-blue-600">{exp.company}</p>
+                            <p className="text-base font-semibold text-primary">{exp.company}</p>
                         </div>
                     </div>
 
@@ -122,7 +122,7 @@ function ExperienceCard({ exp, index, isInView }: ExperienceCardProps) {
                     {/* Achievements */}
                     <div className="mb-5">
                         <div className="flex items-center gap-2 mb-3">
-                            <Award className="w-5 h-5 text-blue-600" />
+                            <Award className="w-5 h-5 text-primary" />
                             <span className="font-semibold text-gray-900">Key Achievements</span>
                         </div>
                         <ul className="space-y-2 ml-7">
@@ -134,7 +134,7 @@ function ExperienceCard({ exp, index, isInView }: ExperienceCardProps) {
                                     transition={{ delay: index * 0.15 + achIndex * 0.08, duration: 0.4 }}
                                     className="flex items-start gap-2 text-sm text-gray-600"
                                 >
-                                    <ArrowRight className="w-4 h-4 text-blue-500 mt-0.5 shrink-0" />
+                                    <ArrowRight className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                                     <span>{achievement}</span>
                                 </motion.li>
                             ))}
@@ -152,7 +152,7 @@ function ExperienceCard({ exp, index, isInView }: ExperienceCardProps) {
                                     delay: index * 0.15 + techIndex * 0.05,
                                     duration: 0.3,
                                 }}
-                                className="bg-gray-50 text-gray-700 text-xs px-3 py-1.5 rounded-lg font-medium border border-gray-200 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all duration-200"
+                                className="bg-gray-50 text-gray-700 text-xs px-3 py-1.5 rounded-lg font-medium border border-gray-200 hover:bg-primary hover:text-white hover:border-primary transition-all duration-200"
                             >
                                 {tech}
                             </motion.span>

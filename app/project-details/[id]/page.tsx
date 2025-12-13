@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, Layers, Star, Code2, ExternalLink, Hash, Sparkles } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export default async function ProjectDetails({
     params,
@@ -53,12 +54,16 @@ export default async function ProjectDetails({
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
                     {/* Left Column: Info - Takes 2 columns */}
                     <div className="lg:col-span-2 space-y-8">
+                        <Link href="/projects" className="flex items-center gap-2 text-gray-500 hover:text-gray-700 transition-colors group">
+                            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                            <span className="text-sm font-medium">Back to Projects</span>
+                        </Link>
                         <div className="space-y-4">
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100">
                                 <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
                                 <span className="text-xs font-medium text-indigo-700 uppercase tracking-wide">Overview</span>
                             </div>
-                            <h2 className="text-3xl font-bold text-gray-900">About this Project</h2>
+                            <h2 className="lg:text-5xl md:text-4xl text-3xl font-bold text-gray-900">About this Project</h2>
                         </div>
 
                         {/* Description */}
@@ -66,14 +71,14 @@ export default async function ProjectDetails({
 
                         {/* Action Buttons */}
                         <div className="flex flex-wrap gap-4 pt-4">
-                            <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200">
+                            <Button size={"lg"}>
                                 <ExternalLink className="w-4 h-4" />
                                 View Live
-                            </button>
-                            <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-gray-200 text-gray-700 font-medium hover:bg-gray-50 hover:border-gray-300 transition-colors">
+                            </Button>
+                            <Button size={"lg"} variant={"outline"}>
                                 <Code2 className="w-4 h-4" />
                                 Source Code
-                            </button>
+                            </Button>
                         </div>
 
                         {/* Tech Stack */}
@@ -158,22 +163,6 @@ export default async function ProjectDetails({
                     </div>
                 </div>
             </div>
-
-            {/* Footer */}
-            <footer className="py-12 px-6 border-t border-gray-100 bg-gray-50/50">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-                    <p className="text-gray-500 text-sm">
-                        Want to discuss this project?{" "}
-                        <Link href="#" className="text-indigo-600 font-medium hover:text-indigo-700 transition-colors">
-                            {"Let's connect"}
-                        </Link>
-                    </p>
-                    <Link href="/" className="flex items-center gap-2 text-gray-500 hover:text-gray-700 transition-colors group">
-                        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                        <span className="text-sm font-medium">Back to Projects</span>
-                    </Link>
-                </div>
-            </footer>
         </main>
     )
 }
