@@ -48,16 +48,16 @@ export default function ProjectsPage() {
         <div className="min-h-screen bg-white">
             <div className="min-h-[20vh] w-full bg-black flex items-center justify-start px-5 md:px-10 lg:px-20 xl:px-32 py-20 relative overflow-hidden"
                 style={{
-                    background: `linear-gradient(180deg, rgb(99, 102, 241), rgb(67, 56, 202), rgb(0, 0, 0), black)`
+                    background: `linear-gradient(180deg, var(--primary) 0%,var(--background) 50% ,var(--background) 100%)`
                 }}>
 
                 {/* Header Section */}
                 <div className="pt-20">
                     <div>
-                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-4 text-balance">
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-secondary-foreground mb-4 text-balance">
                             All Projects
                         </h1>
-                        <p className="text-md md:text-lg text-primary-foreground/70 max-w-2xl">
+                        <p className="text-md md:text-lg text-secondary-foreground/70 max-w-2xl">
                             Explore my complete collection of work across different categories and technologies
                         </p>
                     </div>
@@ -67,7 +67,7 @@ export default function ProjectsPage() {
                     </div>
                 </div>
             </div>
-            <div className="min-h-screen w-full bg-white px-5 md:px-10 lg:px-16 xl:px-24 py-20">
+            <div className="min-h-screen w-full px-5 md:px-10 lg:px-16 xl:px-24 py-20 bg-background">
                 {/* Filter Section */}
                 <div className="mb-12 max-w-7xl mx-auto">
                     <div className="bg-linear-to-br from-secondary/50 to-secondary/30 border border-border rounded-xl p-4 md:p-5 backdrop-blur-sm">
@@ -166,7 +166,7 @@ export default function ProjectsPage() {
                         <div className="space-y-16">
                             {filteredProjects.map((project, index) => (
                                 <div key={index} className="group w-full bg-background rounded-lg border border-border hover:border-primary/50 p-5 overflow-hidden transition-all duration-200 cursor-pointer">
-                                    {/* Header */} 
+                                    {/* Header */}
                                     <div className="flex items-center justify-end gap-5 relative">
                                         <Link className="relative z-1" href={"/project-details/" + project.id}>
                                             <ArrowRight className="cursor-pointer" size={30} />

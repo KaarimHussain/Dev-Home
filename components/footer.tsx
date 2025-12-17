@@ -17,10 +17,6 @@ export default function Footer() {
             href: "/projects"
         },
         {
-            label: "Skills",
-            href: "/skills"
-        },
-        {
             label: "Contact",
             href: "/contact"
         }

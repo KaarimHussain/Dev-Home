@@ -22,13 +22,13 @@ export default async function ProjectDetails({
             <div
                 className="min-h-[20vh] w-full bg-black flex items-center justify-start px-5 md:px-10 lg:px-20 xl:px-32 py-20 relative overflow-hidden"
                 style={{
-                    background: `linear-gradient(180deg, rgb(99, 102, 241), rgb(67, 56, 202), rgb(0, 0, 0), black)`,
+                    background: `linear-gradient(180deg, var(--primary) 0%,var(--background) 50% ,var(--background) 100%)`,
                 }}
             >
                 {/* Header Section */}
                 <div className="pt-20">
                     <div>
-                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-4 text-balance">
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-secondary-foreground mb-4 text-balance">
                             {project.title}
                         </h1>
                         <div className="flex items-center gap-3 flex-wrap">
@@ -49,7 +49,7 @@ export default async function ProjectDetails({
                 </div>
             </div>
 
-            <div className="px-5 md:px-10 lg:px-20 xl:px-32 py-20">
+            <div className="px-5 md:px-10 lg:px-20 xl:px-32 py-20 bg-background">
                 {/* Hero Section */}
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
                     {/* Left Column: Info - Takes 2 columns */}

@@ -3,7 +3,7 @@
 // SVGS
 import React from "@/public/svgs/React.svg";
 import NodeJs from "@/public/svgs/NodeJs.svg";
-import Express from "@/public/svgs/Express-Dark.svg";
+import Express from "@/public/svgs/Express.svg";
 import DotNet from "@/public/svgs/Dotnet.svg";
 import MongoDb from "@/public/svgs/MongoDb.svg";
 
@@ -108,48 +108,12 @@ export default function Hero() {
             <motion.div
                 className="min-h-screen w-full bg-black flex items-center justify-start px-5 md:px-10 lg:px-20 xl:px-32 py-20 relative overflow-hidden"
                 style={{
-                    background: `linear-gradient(180deg, rgb(99, 102, 241), rgb(67, 56, 202), rgb(0, 0, 0), black)`
+                    background: `linear-gradient(180deg, var(--primary), var(--background), var(--background))`
                 }}
                 variants={backgroundVariants}
                 initial="hidden"
                 animate="visible"
             >
-                {/* Floating Grid Background */}
-                <div className="absolute inset-0 opacity-20">
-                    <div className="absolute inset-0" style={{
-                        backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
-                                         linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-                        backgroundSize: '50px 50px'
-                    }} />
-                </div>
-
-                {/* Animated Gradient Orbs */}
-                <motion.div
-                    className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/30 rounded-full blur-3xl"
-                    animate={{
-                        x: [0, 50, 0],
-                        y: [0, -50, 0],
-                        scale: [1, 1.2, 1]
-                    }}
-                    transition={{
-                        duration: 8,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                />
-                <motion.div
-                    className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl"
-                    animate={{
-                        x: [0, -50, 0],
-                        y: [0, 50, 0],
-                        scale: [1, 1.3, 1]
-                    }}
-                    transition={{
-                        duration: 10,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                />
 
                 <motion.div
                     className="flex flex-col gap-4 items-start justify-center relative z-10"
@@ -159,20 +123,20 @@ export default function Hero() {
                 >
                     {/* Decorative Line */}
                     <motion.div
-                        className="w-20 h-1 bg-primary rounded-full mb-2"
+                        className="w-20 h-1 bg-secondary-foreground rounded-full mb-2"
                         initial={{ width: 0 }}
                         animate={{ width: 80 }}
                         transition={{ delay: 0.5, duration: 0.6 }}
                     />
 
                     <motion.h1
-                        className="xl:text-8xl lg:text-7xl text-5xl font-bold text-white relative"
+                        className="xl:text-8xl lg:text-7xl text-5xl font-bold text-secondary-foreground relative"
                         variants={headingVariants}
                         onHoverStart={() => setIsHovering(true)}
                         onHoverEnd={() => setIsHovering(false)}
                     >
                         Hi! I'am <br />
-                        <span className="font-light transition-all duration-200 hover:font-bold relative inline-block group cursor-default">
+                        <span className="font-light transition-all duration-200 hover:font-bold relative inline-block group cursor-default text-primary">
                             Kaarim Hussain.
                             <motion.span
                                 className="absolute -bottom-2 left-0 h-1 bg-primary rounded-full"
@@ -184,21 +148,9 @@ export default function Hero() {
                     </motion.h1>
 
                     <motion.p
-                        className="text-white/80 text-sm md:text-xl font-medium flex items-center gap-2"
+                        className="text-secondary-foreground/80 text-sm md:text-xl font-medium flex items-center gap-2"
                         variants={subtitleVariants}
                     >
-                        <motion.span
-                            className="inline-block w-2 h-2 bg-primary rounded-full"
-                            animate={{
-                                scale: [1, 1.5, 1],
-                                opacity: [1, 0.5, 1]
-                            }}
-                            transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                            }}
-                        />
                         Passionate Software Engineer & Computer Science Student
                     </motion.p>
 
@@ -214,20 +166,12 @@ export default function Hero() {
                                 <TooltipTrigger>
                                     <motion.div
                                         variants={iconVariants}
-                                        className="w-12 h-12 bg-white/5 hover:bg-primary/10 border border-white/10 hover:border-primary/30 rounded-xl flex items-center justify-center backdrop-blur-sm transition-all duration-300 cursor-pointer group relative overflow-hidden"
-                                        whileHover={{
-                                            scale: 1.15,
-                                            rotate: [0, -5, 5, 0],
-                                            y: -5
-                                        }}
-                                        whileTap={{ scale: 0.95 }}
+                                        className="w-12 h-12 bg-white border border-gray-200 rounded-xl flex items-center justify-center transition-all duration-300 hover:bg-gray-100 hover:border-gray-300 cursor-pointer"
                                     >
-                                        {/* Shine effect on hover */}
-                                        <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                                         <Image
                                             src={data.icon}
                                             alt={data.name}
-                                            className="w-7 h-7 relative z-10 transition-transform duration-300 group-hover:scale-110"
+                                            className="w-7 h-7 relative z-10"
                                         />
                                     </motion.div>
                                 </TooltipTrigger>

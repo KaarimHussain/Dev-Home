@@ -19,7 +19,7 @@ export default function About() {
         <>
             <div
                 ref={sectionRef}
-                className="min-h-[50vh] w-full bg-linear-to-b from-white to-gray-50 px-5 md:px-10 lg:px-20 xl:px-32 py-20 relative overflow-hidden"
+                className="min-h-[50vh] w-full bg-background px-5 md:px-10 lg:px-20 xl:px-32 py-20 relative overflow-hidden"
             >
                 {/* Decorative Background Elements */}
                 <div className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
