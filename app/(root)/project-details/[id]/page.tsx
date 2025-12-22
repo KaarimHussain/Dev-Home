@@ -1,17 +1,48 @@
-import { projects } from "@/lib/data"
+
+import { db } from "@/app/api/database"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, Layers, Star, Code2, ExternalLink, Hash, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
+interface Project {
+    id: number;
+    title: string;
+    description: string;
+    category: string;
+    type: "desktop" | "mobile";
+    tags: string[];
+    tech: string[];
+    favourite: boolean;
+    images: string[];
+}
+
+async function getProject(id: string): Promise<Project | undefined> {
+    return new Promise((resolve) => {
+        db.get("SELECT * FROM projects WHERE id = ?", [id], (err, row: any) => {
+            if (err || !row) {
+                resolve(undefined);
+            } else {
+                resolve({
+                    ...row,
+                    tags: JSON.parse(row.tags),
+                    tech: JSON.parse(row.tech),
+                    images: JSON.parse(row.images),
+                    favourite: Boolean(row.favourite)
+                });
+            }
+        });
+    });
+}
+
 export default async function ProjectDetails({
-    params, 
+    params,
 }: {
     params: Promise<{ id: string }>
 }) {
     const { id } = await params
-    const project = projects.find((p) => p.id === Number(id))
+    const project = await getProject(id);
 
     if (!project) {
         notFound()

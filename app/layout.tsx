@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar";
 import { Toaster } from "sonner";
-import Footer from "@/components/footer";
-import FloatingSocials from "@/components/home/floating-socials";
 
 const geistSans = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",
@@ -32,10 +29,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
       >
         <Toaster />
-        <FloatingSocials />
-        <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   );

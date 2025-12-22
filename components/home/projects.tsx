@@ -3,10 +3,20 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 
-import { projects } from "@/lib/data";
+interface Project {
+    id: number;
+    title: string;
+    description: string;
+    category: string;
+    type: "desktop" | "mobile";
+    tags: string[];
+    tech: string[];
+    favourite: boolean;
+    images: string[];
+}
 
 export default function Projects() {
     const containerRef = useRef(null);
@@ -17,6 +27,22 @@ export default function Projects() {
 
     const y1 = useTransform(scrollYProgress, [0, 1], [0, -300]);
     const y2 = useTransform(scrollYProgress, [0, 1], [0, 300]);
+
+    const [projects, setProjects] = useState<Project[]>([]);
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const response = await fetch('/api/projects');
+                const data = await response.json();
+                setProjects(data);
+            } catch (error) {
+                console.error("Failed to fetch projects:", error);
+            }
+        };
+
+        fetchProjects();
+    }, []);
 
     return (
         <div className="min-h-screen bg-white relative">

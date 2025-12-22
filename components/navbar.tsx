@@ -10,6 +10,7 @@ import Link from "next/link";
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [resumeUrl, setResumeUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +24,27 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const fetchResume = async () => {
+      try {
+        const response = await fetch('/api/resume');
+        const data = await response.json();
+        if (data && data.url) {
+          setResumeUrl(data.url);
+        }
+      } catch (error) {
+        console.error("Failed to fetch resume:", error);
+      }
+    };
+    fetchResume();
+  }, []);
+
+  const handleResumeClick = () => {
+    if (resumeUrl) {
+      window.open(resumeUrl, '_blank');
+    }
+  };
 
   const links = [
     { label: "Home", href: "/" },
@@ -77,7 +99,7 @@ export default function Navbar() {
 
             {/* Buttons - Right Side (Desktop Only) */}
             <div className="hidden lg:flex gap-3 items-center justify-end">
-              <Button variant={"outline"}>Get Resume</Button>
+              <Button variant={"outline"} onClick={handleResumeClick}>Get Resume</Button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -149,7 +171,7 @@ export default function Navbar() {
 
                 {/* Menu Buttons */}
                 <div className="flex flex-col mt-auto p-5 space-y-3 border-t border-zinc-100/20">
-                  <Button>Get Resume</Button>
+                  <Button onClick={handleResumeClick}>Get Resume</Button>
                 </div>
               </div>
             </motion.div>

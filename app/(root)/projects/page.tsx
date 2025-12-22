@@ -1,17 +1,28 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { ArrowRight, X, Filter, Tag } from "lucide-react"
 import Link from "next/link"
-import { projects } from "@/lib/data"
 import Image from "next/image"
 import { motion, Variants } from "motion/react"
 
-const getUniqueTypes = (projectsList: typeof projects) => {
+interface Project {
+    id: number;
+    title: string;
+    description: string;
+    category: string;
+    type: "desktop" | "mobile";
+    tags: string[];
+    tech: string[];
+    favourite: boolean;
+    images: string[];
+}
+
+const getUniqueTypes = (projectsList: Project[]) => {
     return Array.from(new Set(projectsList.map((p) => p.category))).sort()
 }
 
-const getUniqueTags = (projectsList: typeof projects) => {
+const getUniqueTags = (projectsList: Project[]) => {
     const tags = new Set<string>()
     projectsList.forEach((p) => p.tags.forEach((tag) => tags.add(tag)))
     return Array.from(tags).sort()
@@ -20,6 +31,21 @@ const getUniqueTags = (projectsList: typeof projects) => {
 export default function ProjectsPage() {
     const [selectedTypes, setSelectedTypes] = useState<string[]>([])
     const [selectedTags, setSelectedTags] = useState<string[]>([])
+    const [projects, setProjects] = useState<Project[]>([])
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const response = await fetch('/api/projects');
+                const data = await response.json();
+                setProjects(data);
+            } catch (error) {
+                console.error("Failed to fetch projects:", error);
+            }
+        };
+
+        fetchProjects();
+    }, []);
 
     const filteredProjects = useMemo(() => {
         return projects.filter((project) => {
@@ -27,7 +53,7 @@ export default function ProjectsPage() {
             const tagsMatch = selectedTags.length === 0 || selectedTags.some((tag) => project.tags.includes(tag))
             return typeMatch && tagsMatch
         })
-    }, [selectedTypes, selectedTags])
+    }, [selectedTypes, selectedTags, projects])
 
     const types = getUniqueTypes(projects)
     const tags = getUniqueTags(projects)

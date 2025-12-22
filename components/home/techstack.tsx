@@ -2,12 +2,12 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { Code2, Paintbrush, Layers, Sparkles } from "lucide-react";
 
 // Import available SVGs
-import React from "@/public/svgs/React.svg";
+import ReactIdx from "@/public/svgs/React.svg";
 import NodeJs from "@/public/svgs/NodeJs.svg";
 import Express from "@/public/svgs/Express.svg";
 import DotNet from "@/public/svgs/Dotnet.svg";
@@ -55,69 +55,62 @@ import VisualStudioCode from "@/public/svgs/Visual-Studio-Code.svg"
 import VisualStudio from "@/public/svgs/Visual-Studio.svg"
 import Notion from "@/public/svgs/Notion.svg"
 
-const techStack = {
-    languages: [
-        { name: "JavaScript", icon: JavaScript, color: "#F7DF1E" },
-        { name: "TypeScript", icon: TypeScript, color: "#3178C6" },
-        { name: "C#", icon: Csharp, color: "#239120" },
-        { name: "Dart", icon: Dart, color: "#0175C2" },
-        { name: "PHP", icon: PHP, color: "#777BB4" },
-        { name: "SQL Server", icon: SqlServer, color: "#336791" },
-        { name: "MySQL", icon: MySQL, color: "#336791" },
-        { name: "PostgreSQL", icon: PostgreSQL, color: "#336791" },
-        { name: "MongoDB", icon: MongoDb, color: "#47A248" },
-        { name: "Firebase", icon: Firebase, color: "#FFCA28" },
-    ],
-    frameworks: [
-        { name: "React", icon: React, color: "#61DAFB" },
-        { name: "Next.js", icon: NextJs, color: "#000000" },
-        { name: "Node.js", icon: NodeJs, color: "#339933" },
-        { name: "Express", icon: Express, color: "#000000" },
-        { name: ".NET Core", icon: DotNet, color: "#512BD4" },
-        { name: "Angular", icon: Angular, color: "#DD0031" },
-        { name: "Flutter", icon: Flutter, color: "#02569B" },
-        { name: "JQuery", icon: Jquery, color: "#3178C6" },
-        { name: "JWT", icon: JWT, color: "#3178C6" },
-        { name: "Wordpress", icon: Wordpress, color: "#3178C6" },
-        { name: "Elementor", icon: Elementor, color: "#3178C6" },
-        { name: "Bootstrap", icon: Bootstrap, color: "#336791" },
-        { name: "TailwindCss", icon: TailwindCss, color: "#336791" },
-        { name: "Shadcn/ui", icon: Shadncn, color: "#336791" },
-        { name: "Motion", icon: Motion, color: "#336791" },
-
-    ],
-    designTools: [
-        { name: "Figma", icon: Figma, color: "#F24E1E" },
-        { name: "Canva", icon: Canva, color: "#00C4CC" },
-    ],
-    aiTools: [
-        { name: "OpenAI", icon: OpenAI, color: "#10A37F" },
-        { name: "Claude", icon: Claude, color: "#8B5CF6" },
-        { name: "Gemini", icon: Gemini, color: "#4285F4" },
-        { name: "Ollama", icon: Ollama, color: "#111827" },
-        { name: "GitHub Copilot", icon: GitHubCopilot, color: "#3B82F6" },
-        { name: "Github", icon: Github, color: "#3B82F6" },
-        { name: "Git", icon: Git, color: "#3B82F6" },
-        { name: "Qwen", icon: Qwen, color: "#3B82F6" },
-        { name: "Perplexity", icon: Perplexity, color: "#3B82F6" },
-        { name: "Kimi", icon: Kimi, color: "#3B82F6" },
-        { name: "Grok", icon: Grok, color: "#3B82F6" },
-        { name: "Windsurf", icon: Windsurf, color: "#3B82F6" },
-        { name: "PowerPoint", icon: Powerpoint, color: "#3B82F6" },
-        { name: "Word", icon: Word, color: "#3B82F6" },
-        { name: "Excel", icon: Excel, color: "#3B82F6" },
-        { name: "Discord", icon: Discord, color: "#3178C6" },
-        { name: "Cursor", icon: Cursor, color: "#336791" },
-        { name: "Visual Studio", icon: VisualStudio, color: "#336791" },
-        { name: "Visual Studio Code", icon: VisualStudioCode, color: "#336791" },
-        { name: "Notion", icon: Notion, color: "#336791" },
-    ],
+const iconMap: { [key: string]: any } = {
+    "JavaScript": JavaScript,
+    "TypeScript": TypeScript,
+    "Csharp": Csharp,
+    "Dart": Dart,
+    "PHP": PHP,
+    "SqlServer": SqlServer,
+    "MySQL": MySQL,
+    "PostgreSQL": PostgreSQL,
+    "MongoDb": MongoDb,
+    "Firebase": Firebase,
+    "React": ReactIdx,
+    "NextJs": NextJs,
+    "NodeJs": NodeJs,
+    "Express": Express,
+    "DotNet": DotNet,
+    "Angular": Angular,
+    "Flutter": Flutter,
+    "Jquery": Jquery,
+    "JWT": JWT,
+    "Wordpress": Wordpress,
+    "Elementor": Elementor,
+    "Bootstrap": Bootstrap,
+    "TailwindCss": TailwindCss,
+    "Shadncn": Shadncn,
+    "Motion": Motion,
+    "OpenAI": OpenAI,
+    "Claude": Claude,
+    "Gemini": Gemini,
+    "Ollama": Ollama,
+    "GitHubCopilot": GitHubCopilot,
+    "Github": Github,
+    "Git": Git,
+    "Qwen": Qwen,
+    "Perplexity": Perplexity,
+    "Kimi": Kimi,
+    "Grok": Grok,
+    "Windsurf": Windsurf,
+    "Figma": Figma,
+    "Canva": Canva,
+    "Powerpoint": Powerpoint,
+    "Word": Word,
+    "Excel": Excel,
+    "Discord": Discord,
+    "Cursor": Cursor,
+    "VisualStudio": VisualStudio,
+    "VisualStudioCode": VisualStudioCode,
+    "Notion": Notion
 };
 
 type TechItemType = {
+    id: number;
     name: string;
+    icon: string;
     color: string;
-    icon?: any;
+    category: string;
 };
 
 interface TechItemProps {
@@ -128,7 +121,7 @@ interface TechItemProps {
 }
 
 function TechItem({ item, index }: TechItemProps) {
-    const hasIcon = "icon" in item && item.icon;
+    const iconSrc = iconMap[item.icon];
 
     return (
         <motion.div
@@ -138,9 +131,9 @@ function TechItem({ item, index }: TechItemProps) {
         >
             <div className="group flex items-center gap-3 rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 transition-all duration-200 hover:border-primary/50 hover:bg-white hover:shadow-sm">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 overflow-hidden">
-                    {hasIcon ? (
+                    {iconSrc ? (
                         <Image
-                            src={item.icon}
+                            src={iconSrc}
                             alt={item.name}
                             width={32}
                             height={32}
@@ -161,6 +154,40 @@ function TechItem({ item, index }: TechItemProps) {
 export default function Techstack() {
     const sectionRef = useRef(null);
     const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+    const [techStack, setTechStack] = useState<{
+        languages: TechItemType[];
+        frameworks: TechItemType[];
+        designTools: TechItemType[];
+        aiTools: TechItemType[];
+    }>({
+        languages: [],
+        frameworks: [],
+        designTools: [],
+        aiTools: []
+    });
+
+    useEffect(() => {
+        const fetchTechStack = async () => {
+            try {
+                const response = await fetch('/api/techstack');
+                const data = await response.json();
+
+                const groupedData = data.reduce((acc: any, item: any) => {
+                    if (item.category === 'languages') acc.languages.push(item);
+                    if (item.category === 'frameworks') acc.frameworks.push(item);
+                    if (item.category === 'design') acc.designTools.push(item);
+                    if (item.category === 'ai') acc.aiTools.push(item);
+                    return acc;
+                }, { languages: [], frameworks: [], designTools: [], aiTools: [] });
+
+                setTechStack(groupedData);
+            } catch (error) {
+                console.error("Failed to fetch tech stack:", error);
+            }
+        };
+
+        fetchTechStack();
+    }, []);
 
     return (
         <>
@@ -233,7 +260,7 @@ export default function Techstack() {
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4">
                             {techStack.languages.map((item, index) => (
                                 <TechItem
-                                    key={item.name}
+                                    key={item.id || item.name}
                                     item={item}
                                     index={index}
                                     category="languages"
@@ -259,7 +286,7 @@ export default function Techstack() {
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4">
                             {techStack.frameworks.map((item, index) => (
                                 <TechItem
-                                    key={item.name}
+                                    key={item.id || item.name}
                                     item={item}
                                     index={index}
                                     category="frameworks"
@@ -285,7 +312,7 @@ export default function Techstack() {
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                             {techStack.aiTools.map((item, index) => (
                                 <TechItem
-                                    key={item.name}
+                                    key={item.id || item.name}
                                     item={item}
                                     index={index}
                                     category="ai"
@@ -311,7 +338,7 @@ export default function Techstack() {
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                             {techStack.designTools.map((item, index) => (
                                 <TechItem
-                                    key={item.name}
+                                    key={item.id || item.name}
                                     item={item}
                                     index={index}
                                     category="design"

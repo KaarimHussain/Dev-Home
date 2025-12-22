@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
 export default function Contact() {
@@ -17,6 +17,34 @@ export default function Contact() {
         subject: "",
         message: ""
     });
+
+    const [contactInfo, setContactInfo] = useState<any[]>([]);
+
+    useEffect(() => {
+        const fetchContactInfo = async () => {
+            try {
+                const response = await fetch('/api/contact');
+                const data = await response.json();
+
+                const iconMap: any = {
+                    "MailIcon": MailIcon,
+                    "PhoneIcon": PhoneIcon,
+                    "MapPinIcon": MapPinIcon
+                };
+
+                const formattedData = data.map((item: any) => ({
+                    ...item,
+                    icon: iconMap[item.icon]
+                }));
+
+                setContactInfo(formattedData);
+            } catch (error) {
+                console.error("Failed to fetch contact info:", error);
+            }
+        };
+
+        fetchContactInfo();
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -64,24 +92,7 @@ export default function Contact() {
         <>
             <div className="min-h-[50vh] w-full px-5 md:px-10 lg:px-20 xl:px-32 py-20 relative overflow-hidden bg-white">
                 <ContactCard
-                    contactInfo={[
-                        {
-                            icon: MailIcon,
-                            label: "Email",
-                            value: "kaariminnocent@gmail.com",
-                        },
-                        {
-                            icon: PhoneIcon,
-                            label: "Phone",
-                            value: "+92 317 3009130",
-                        },
-                        {
-                            icon: MapPinIcon,
-                            label: "Address",
-                            value: "Karachi, Pakistan",
-                            className: "col-span-2",
-                        },
-                    ]}
+                    contactInfo={contactInfo}
                     description="Whether you have a development project, a collaboration idea, or just want to connect about tech, I'd love to hear from you. Please fill out the form, and I'll respond promptly."
                     title="Get in touch"
                 >
