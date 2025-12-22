@@ -46,7 +46,7 @@ export default function Projects() {
                                 <div className="relative">
                                     <motion.img
                                         style={{ y: y1 }}
-                                        src={project.image}
+                                        src={project.images[0]}
                                         className={
                                             project.type === 'mobile'
                                                 ? "aspect-9/16 hidden md:block lg:w-[150px] md:w-[100px] w-[75px] absolute lg:top-10 lg:-left-30 md:top-20 md:-left-15 top-10 -left-5 z-1 object-center object-cover rounded-2xl"
@@ -61,21 +61,23 @@ export default function Projects() {
                                         </h2>
                                     </div>
 
-                                    <motion.img
-                                        style={{ y: y2 }}
-                                        src={project.image2}
-                                        className={
-                                            project.type === 'mobile' ?
-                                                "aspect-9/16 hidden md:block lg:w-[150px] md:w-[100px] w-[75px] absolute lg:top-30 lg:-right-50 md:top-20 md:-right-30 top-10 -right-10 z-0 object-center object-cover rounded-2xl" :
-                                                "aspect-video hidden md:block lg:w-[300px] md:w-[200px] w-[150px] absolute lg:top-30 lg:-right-50 md:top-20 md:-right-30 top-10 -right-10 z-0 object-center object-cover rounded-2xl"}
-                                        alt=""
-                                    />
+                                    {project.images[1] && (
+                                        <motion.img
+                                            style={{ y: y2 }}
+                                            src={project.images[1]}
+                                            className={
+                                                project.type === 'mobile' ?
+                                                    "aspect-9/16 hidden md:block lg:w-[150px] md:w-[100px] w-[75px] absolute lg:top-30 lg:-right-50 md:top-20 md:-right-30 top-10 -right-10 z-0 object-center object-cover rounded-2xl" :
+                                                    "aspect-video hidden md:block lg:w-[300px] md:w-[200px] w-[150px] absolute lg:top-30 lg:-right-50 md:top-20 md:-right-30 top-10 -right-10 z-0 object-center object-cover rounded-2xl"}
+                                            alt=""
+                                        />
+                                    )}
                                 </div>
                                 <div className="flex flex-col items-center justify-between gap-5 max-w-xl">
                                     <p className="lg:text-2xl md:text-xl text-lg text-white font-light text-center italic z-5 mix-blend-difference">
                                         "{project.description}"
                                     </p>
-                                    <div className="flex flex-wrap justify-center gap-2 mb-2 mt-2">
+                                    <div className="flex flex-wrap justify-center gap-2 mb-2 mt-2 z-1">
                                         {project.tech.map((techItem, techIndex) => (
                                             <span
                                                 key={techIndex}
@@ -98,7 +100,7 @@ export default function Projects() {
                 </div>
                 <div className="w-full flex items-center justify-center">
                     <Link href={"/projects"} className="mx-auto">
-                        <Button size={"lg"}>
+                        <Button size={"lg"} className="rounded-full cursor-pointer">
                             <ArrowRight /> View All Projects
                         </Button>
                     </Link>

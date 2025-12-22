@@ -5,6 +5,7 @@ import { ArrowRight, X, Filter, Tag } from "lucide-react"
 import Link from "next/link"
 import { projects } from "@/lib/data"
 import Image from "next/image"
+import { motion, Variants } from "motion/react"
 
 const getUniqueTypes = (projectsList: typeof projects) => {
     return Array.from(new Set(projectsList.map((p) => p.category))).sort()
@@ -44,18 +45,34 @@ export default function ProjectsPage() {
         setSelectedTags([])
     }
 
+    // Animation variants
+    const backgroundVariants: Variants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                duration: 0.8,
+                ease: "easeOut" as const
+            }
+        }
+    };
+
     return (
         <div className="min-h-screen bg-white">
-            <div className="min-h-[20vh] w-full bg-black flex items-center justify-start px-5 md:px-10 lg:px-20 xl:px-32 py-20 relative overflow-hidden"
+            <motion.div className="min-h-[20vh] w-full bg-black flex items-center justify-start px-5 md:px-10 lg:px-20 xl:px-32 py-20 relative overflow-hidden"
                 style={{
                     background: `linear-gradient(180deg, var(--primary) 0%,var(--background) 50% ,var(--background) 100%)`
-                }}>
+                }}
+                variants={backgroundVariants}
+                initial="hidden"
+                animate="visible"
+            >
 
                 {/* Header Section */}
                 <div className="pt-20">
                     <div>
                         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-secondary-foreground mb-4 text-balance">
-                            All Projects
+                            All <span className="font-light transition-all duration-200 hover:font-bold relative inline-block group cursor-default text-primary">Projects</span>
                         </h1>
                         <p className="text-md md:text-lg text-secondary-foreground/70 max-w-2xl">
                             Explore my complete collection of work across different categories and technologies
@@ -66,7 +83,7 @@ export default function ProjectsPage() {
                         <span className="text-sm font-medium text-primary">{filteredProjects.length} Projects</span>
                     </div>
                 </div>
-            </div>
+            </motion.div>
             <div className="min-h-screen w-full px-5 md:px-10 lg:px-16 xl:px-24 py-20 bg-background">
                 {/* Filter Section */}
                 <div className="mb-12 max-w-7xl mx-auto">
@@ -187,13 +204,17 @@ export default function ProjectsPage() {
                                         <div className={`grow flex justify-center ${project.type === "desktop" ? "md:w-3/5 lg:w-2/3 md:justify-end" : "w-full md:w-3/5 lg:w-3/5 md:justify-end"}`}>
                                             {project.type === "desktop" ? (
                                                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full">
-                                                    <img src={project.image} alt={`${project.title} screenshot 1`} width={400} height={225} className="aspect-video w-full sm:w-1/2 object-cover object-center rounded-lg shadow-lg -rotate-12 left-7 top-20 group-hover:top-0 group-hover:left-0 duration-200 transition-all relative" />
-                                                    <img src={project.image2} alt={`${project.title} screenshot 2`} width={600} height={337} className="aspect-video w-full sm:w-1/2 object-cover object-center rounded-lg shadow-lg rotate-12 right-7 top-20 group-hover:top-0 group-hover:right-0 duration-200 transition-all relative" />
+                                                    <img src={project.images[0]} alt={`${project.title} screenshot 1`} width={400} height={225} className="aspect-video w-full sm:w-1/2 object-cover object-center rounded-lg shadow-lg -rotate-12 left-7 top-20 group-hover:top-0 group-hover:left-0 duration-200 transition-all relative" />
+                                                    {project.images[1] && (
+                                                        <img src={project.images[1]} alt={`${project.title} screenshot 2`} width={600} height={337} className="aspect-video w-full sm:w-1/2 object-cover object-center rounded-lg shadow-lg rotate-12 right-7 top-20 group-hover:top-0 group-hover:right-0 duration-200 transition-all relative" />
+                                                    )}
                                                 </div>
                                             ) : (
                                                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full">
-                                                    <img src={project.image} alt={`${project.title} main image`} className="object-cover rounded-lg shadow-lg aspect-9/16 -rotate-12 left-7 top-20 group-hover:top-0 group-hover:left-0 duration-200 transition-all relative" width={200} />
-                                                    <img src={project.image2} alt={`${project.title} main image`} className="object-cover rounded-lg shadow-lg aspect-9/16 rotate-12 right-7 top-20 group-hover:top-0 group-hover:right-0 duration-200 transition-all relative" width={200} />
+                                                    <img src={project.images[0]} alt={`${project.title} main image`} className="object-cover rounded-lg shadow-lg aspect-9/16 -rotate-12 left-7 top-20 group-hover:top-0 group-hover:left-0 duration-200 transition-all relative" width={200} />
+                                                    {project.images[1] && (
+                                                        <img src={project.images[1]} alt={`${project.title} main image`} className="object-cover rounded-lg shadow-lg aspect-9/16 rotate-12 right-7 top-20 group-hover:top-0 group-hover:right-0 duration-200 transition-all relative" width={200} />
+                                                    )}
                                                 </div>
                                             )}
                                         </div>

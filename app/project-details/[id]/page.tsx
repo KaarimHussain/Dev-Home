@@ -6,7 +6,7 @@ import { ArrowLeft, Layers, Star, Code2, ExternalLink, Hash, Sparkles } from "lu
 import { Button } from "@/components/ui/button"
 
 export default async function ProjectDetails({
-    params,
+    params, 
 }: {
     params: Promise<{ id: string }>
 }) {
@@ -134,7 +134,7 @@ export default async function ProjectDetails({
                                 } rounded-2xl overflow-hidden border border-gray-200 bg-gray-50 shadow-2xl shadow-gray-200/60 group`}
                         >
                             <Image
-                                src={project.image || "/placeholder.svg"}
+                                src={project.images[0] || "/placeholder.svg"}
                                 alt={`${project.title} preview`}
                                 fill
                                 className="object-cover group-hover:scale-[1.02] transition-transform duration-700 ease-out"
@@ -144,7 +144,7 @@ export default async function ProjectDetails({
                         </div>
 
                         {/* Secondary Image (if exists) */}
-                        {project.image2 && (
+                        {project.images[1] && (
                             <div
                                 className={`relative ${project.type !== "desktop"
                                     ? "aspect-9/16 w-[190px] lg:w-[300px] shrink-0"
@@ -152,7 +152,7 @@ export default async function ProjectDetails({
                                     } rounded-2xl overflow-hidden border border-gray-200 bg-gray-50 shadow-xl shadow-gray-200/50 group`}
                             >
                                 <Image
-                                    src={project.image2 || "/placeholder.svg"}
+                                    src={project.images[1] || "/placeholder.svg"}
                                     alt={`${project.title} additional preview`}
                                     fill
                                     className="object-cover group-hover:scale-[1.02] transition-transform duration-700 ease-out"

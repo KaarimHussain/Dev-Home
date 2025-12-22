@@ -77,8 +77,7 @@ export default function Navbar() {
 
             {/* Buttons - Right Side (Desktop Only) */}
             <div className="hidden lg:flex gap-3 items-center justify-end">
-              <Button variant="secondary">Contact Me</Button>
-              <Button variant={"outline"}>Resume</Button>
+              <Button variant={"outline"}>Get Resume</Button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -150,8 +149,7 @@ export default function Navbar() {
 
                 {/* Menu Buttons */}
                 <div className="flex flex-col mt-auto p-5 space-y-3 border-t border-zinc-100/20">
-                  <Button variant="secondary">Contact Me</Button>
-                  <Button>Resume</Button>
+                  <Button>Get Resume</Button>
                 </div>
               </div>
             </motion.div>

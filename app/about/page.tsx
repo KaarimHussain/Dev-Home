@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "motion/react";
+import { motion, useInView, Variants } from "motion/react";
 import { useRef } from "react";
 import { Code2, Gamepad2, Rocket, Terminal, Cpu, Globe, User, Heart } from "lucide-react";
 
@@ -21,6 +21,18 @@ export default function AboutPage() {
 }
 
 function HeroSection() {
+
+    // Animation variants
+    const backgroundVariants: Variants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                duration: 0.8,
+                ease: "easeOut" as const
+            }
+        }
+    };
     return (
         <section
             className="min-h-[60vh] w-full flex flex-col justify-center items-center relative overflow-hidden pt-32 pb-16 px-4 mb-24"
@@ -29,15 +41,15 @@ function HeroSection() {
             }}
         >
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                variants={backgroundVariants}
+                initial="hidden"
+                animate="visible"
                 className="relative z-10 max-w-4xl text-center"
             >
                 <span className="text-secondary-foreground/50 font-mono text-lg mb-4 block">@kaariim / about</span>
                 <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 text-black">
                     More Than Just <br />
-                    <span className="text-primary font-light">Syntactic Sugar.</span>
+                    <span className="font-light transition-all duration-200 hover:font-bold relative inline-block group cursor-default text-primary">Syntactic Sugar.</span>
                 </h1>
                 <p className="text-xl text-black/60 max-w-2xl mx-auto leading-relaxed">
                     I build digital experiences that live on the internet. Part engineer, part creative, and fully obsessed with how things work.
@@ -60,7 +72,7 @@ function AboutMeSection() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="relative group"
                 >
-                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-linear-to-tr from-primary/20 to-transparent rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="relative border border-border bg-card/50 backdrop-blur-sm p-8 rounded-2xl overflow-hidden">
                         <div className="absolute top-0 right-0 p-4 opacity-10">
                             <User size={120} />

@@ -14,7 +14,7 @@ export default function Contact() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        phone: "",
+        subject: "",
         message: ""
     });
 
@@ -46,7 +46,7 @@ export default function Contact() {
                 setFormData({
                     name: "",
                     email: "",
-                    phone: "",
+                    subject: "",
                     message: ""
                 });
             } else {
@@ -113,11 +113,11 @@ export default function Contact() {
                         <div className="flex flex-col gap-2">
                             <Label htmlFor="phone">Phone</Label>
                             <Input
-                                id="phone"
-                                name="phone"
-                                type="tel"
-                                placeholder="Enter your phone number"
-                                value={formData.phone}
+                                id="subject"
+                                name="subject"
+                                type="text"
+                                placeholder="Enter your subject"
+                                value={formData.subject}
                                 onChange={handleChange}
                             />
                         </div>

@@ -10,8 +10,7 @@ export interface Project {
     tags: string[];
     tech: string[];
     favourite: boolean;
-    image: string;
-    image2: string;
+    images: string[];
 }
 
 export const projects: Project[] = [
@@ -35,8 +34,10 @@ export const projects: Project[] = [
             "Shadcn/ui",
         ],
         favourite: true,
-        image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80",
-        image2: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80",
+        images: [
+            "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80",
+            "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80"
+        ],
     },
     {
         id: 2,
@@ -48,8 +49,10 @@ export const projects: Project[] = [
         tags: ["Job Marketplace", "Security", "Real-time"],
         tech: ["PHP", "MySQL", "HTML/CSS", "Bootstrap", "AJAX", "jQuery", "JavaScript"],
         favourite: false,
-        image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80",
-        image2: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80",
+        images: [
+            "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80",
+            "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80"
+        ],
     },
     {
         id: 3,
@@ -61,8 +64,10 @@ export const projects: Project[] = [
         tags: ["Mobile", "Shopping", "Payment"],
         tech: ["Flutter", "Firebase", "Dart", "Material UI"],
         favourite: false,
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-        image2: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+        images: [
+            "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+        ],
     },
     {
         id: 4,
@@ -74,7 +79,9 @@ export const projects: Project[] = [
         tags: ["Marketplace", "Creative", "Social"],
         tech: ["Angular", ".NET Core API", "SQL Server", "Tailwind CSS"],
         favourite: false,
-        image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
-        image2: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&q=80",
+        images: [
+            "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
+            "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&q=80"
+        ],
     },
 ]

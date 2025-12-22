@@ -1,7 +1,8 @@
 import nodemailer from 'nodemailer';
+import { generateEmailTemplate } from '@/lib/email-template';
 
 export async function POST(req) {
-    const { email, phone, name, message } = await req.json();
+    const { email, subject, name, message } = await req.json();
 
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
@@ -14,11 +15,13 @@ export async function POST(req) {
     });
 
     try {
+        const htmlContent = generateEmailTemplate({ name, email, subject, message });
+
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: email,
-            subject: "Portfolio: User Contact Query",
-            text: `Name: ${name}\nPhone: ${phone}\nMessage: ${message}`,
+            subject: `Portfolio: User Contact Query ${subject}`,
+            html: htmlContent,
         });
 
         return Response.json({ success: true });

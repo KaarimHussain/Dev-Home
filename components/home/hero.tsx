@@ -182,37 +182,6 @@ export default function Hero() {
                         ))}
                     </motion.div>
                 </motion.div>
-
-                {/* Floating Code Symbols */}
-                <motion.div
-                    className="absolute top-20 right-20 text-primary/20 text-6xl font-mono"
-                    animate={{
-                        y: [0, -20, 0],
-                        opacity: [0.2, 0.4, 0.2]
-                    }}
-                    transition={{
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                >
-                    {"</>"}
-                </motion.div>
-                <motion.div
-                    className="absolute bottom-40 right-40 text-primary/20 text-4xl font-mono"
-                    animate={{
-                        y: [0, 20, 0],
-                        opacity: [0.2, 0.3, 0.2]
-                    }}
-                    transition={{
-                        duration: 5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: 1
-                    }}
-                >
-                    {"{}"}
-                </motion.div>
             </motion.div>
         </>
     )

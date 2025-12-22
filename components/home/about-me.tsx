@@ -1,18 +1,59 @@
 "use client"
+import { Briefcase, History, Layers } from "lucide-react";
+import { motion, useInView, useSpring, useTransform } from "framer-motion";
+import { useRef, useEffect } from "react";
 
-import { Dot } from "lucide-react";
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+// Counter Component for the "Pop" effect
+const Counter = ({ value, duration = 2 }: { value: string; duration?: number }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true });
+
+    // Extract the number from strings like "20+" or "3+"
+    const numericValue = parseInt(value.replace(/[^0-9]/g, ""));
+    const suffix = value.replace(/[0-9]/g, "");
+
+    const spring = useSpring(0, {
+        mass: 1,
+        stiffness: 100,
+        damping: 30,
+    });
+
+    const display = useTransform(spring, (current) =>
+        Math.round(current).toLocaleString() + suffix
+    );
+
+    useEffect(() => {
+        if (isInView) {
+            spring.set(numericValue);
+        }
+    }, [isInView, spring, numericValue]);
+
+    return <motion.span ref={ref}>{display}</motion.span>;
+};
 
 export default function About() {
     const sectionRef = useRef(null);
     const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
 
     const stats = [
-        { number: "3+", label: "Years of Operation" },
-        { number: "20+", label: "Projects Completed" },
-        { number: "15+", label: "Technologies" }
+        {
+            number: "3+",
+            label: "Years of Operation",
+            icon: <History size={20} className="text-primary" />,
+            description: "Developing robust digital solutions."
+        },
+        {
+            number: "20+",
+            label: "Projects Completed",
+            icon: <Briefcase size={20} className="text-primary" />,
+            description: "Successful deliveries across industries."
+        },
+        {
+            number: "15+",
+            label: "Technologies",
+            icon: <Layers size={20} className="text-primary" />,
+            description: "Expertise in modern tech stacks."
+        }
     ];
 
     return (
@@ -74,61 +115,52 @@ export default function About() {
                     className="my-12 h-px bg-linear-to-r from-transparent via-primary to-transparent origin-center"
                 />
 
-                {/* Stats Grid */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, delay: 0.5 }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto"
-                >
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-12">
                     {stats.map((stat, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                            transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                            className="group relative bg-white rounded-2xl p-6 shadow-lg shadow-black/5 border border-gray-100 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-2"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                            className="group relative"
                         >
-                            {/* Gradient Background on Hover */}
-                            <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            {/* Card Container */}
+                            <div className="relative z-10 bg-white/50 backdrop-blur-sm border border-gray-100 rounded-3xl p-8 h-full transition-all duration-500 group-hover:border-primary/20 group-hover:shadow-2xl group-hover:shadow-primary/5">
 
-                            {/* Content */}
-                            <div className="relative flex flex-col items-center justify-center gap-3 text-center">
-                                <div className="flex items-center gap-1">
-                                    <Dot size={40} className="text-primary animate-pulse" />
-                                    <motion.h3
-                                        className="text-4xl lg:text-5xl font-bold text-black"
-                                        initial={{ opacity: 0 }}
-                                        animate={isInView ? { opacity: 1 } : {}}
-                                        transition={{ duration: 0.3, delay: 0.8 + index * 0.1 }}
-                                    >
-                                        {stat.number}
-                                    </motion.h3>
+                                {/* Icon & Small Label */}
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="p-2.5 bg-primary/5 rounded-xl group-hover:scale-110 transition-transform duration-500">
+                                        {stat.icon}
+                                    </div>
+                                    <div className="h-px flex-1 bg-linear-to-r from-primary/20 to-transparent" />
                                 </div>
-                                <p className="text-sm text-black/60 font-medium group-hover:text-black/80 transition-colors">
-                                    {stat.label}
-                                </p>
+
+                                {/* Stat Number */}
+                                <div className="flex items-baseline gap-1 mb-2">
+                                    <h3 className="text-5xl font-bold tracking-tight text-black/90">
+                                        <Counter value={stat.number} />
+                                    </h3>
+                                </div>
+
+                                {/* Label & Description */}
+                                <div>
+                                    <h4 className="text-lg font-semibold text-black/80 mb-1 group-hover:text-primary transition-colors duration-300">
+                                        {stat.label}
+                                    </h4>
+                                    <p className="text-sm text-black/50 leading-relaxed">
+                                        {stat.description}
+                                    </p>
+                                </div>
+
+                                {/* Animated Background Gradient */}
+                                <div className="absolute inset-0 bg-linear-to-br from-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
                             </div>
 
-                            {/* Corner Accent */}
-                            <div className="absolute top-2 right-2 w-2 h-2 bg-primary/20 rounded-full group-hover:bg-primary/40 transition-colors" />
+                            {/* Decorative Background Shape */}
+                            <div className="absolute -bottom-2 -right-2 w-full h-full bg-primary/5 rounded-3xl z-0 transition-transform duration-500 group-hover:translate-x-1 group-hover:translate-y-1" />
                         </motion.div>
                     ))}
-                </motion.div>
-
-                {/* Bottom Decorative Element */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? { opacity: 1 } : {}}
-                    transition={{ duration: 1, delay: 1.2 }}
-                    className="flex justify-center mt-16"
-                >
-                    <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-primary/40 rounded-full animate-pulse" />
-                        <div className="w-16 h-px bg-linear-to-r from-primary/40 to-transparent" />
-                        <div className="w-2 h-2 bg-primary/40 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
-                    </div>
-                </motion.div>
+                </div>
             </div>
         </>
     )
