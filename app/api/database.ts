@@ -236,7 +236,7 @@ const seedData = () => {
         if (row && row.count === 0) {
             console.log("Seeding admin...");
             const insert = db.prepare("INSERT INTO admins (username, password) VALUES (?, ?)");
-            insert.run("admin", "admin123");
+            insert.run(process.env.ADMIN_USERNAME, process.env.ADMIN_PASSWORD);
             insert.finalize();
         }
     });
