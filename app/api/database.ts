@@ -60,6 +60,20 @@ const initDb = () => {
             password TEXT
         )`);
 
+        // Create experiences table
+        db.run(`CREATE TABLE IF NOT EXISTS experiences (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            company TEXT NOT NULL,
+            position TEXT NOT NULL,
+            location TEXT NOT NULL,
+            duration TEXT NOT NULL,
+            type TEXT NOT NULL,
+            description TEXT NOT NULL,
+            achievements TEXT, -- JSON array
+            technologies TEXT, -- JSON array
+            current INTEGER DEFAULT 0
+        )`);
+
         // Seed data if empty
         seedData();
     });
@@ -240,4 +254,66 @@ const seedData = () => {
             insert.finalize();
         }
     });
+
+    // Check if experiences is empty
+    db.get("SELECT count(*) as count FROM experiences", (err, row: any) => {
+        if (err) console.error(err);
+        if (row && row.count === 0) {
+            console.log("Seeding experiences...");
+            const experiences = [
+                {
+                    company: "Tech Solutions Inc.",
+                    position: "Senior Full-Stack Developer",
+                    location: "Remote",
+                    duration: "Jan 2023 - Present",
+                    type: "Full-time",
+                    description: "Leading development of scalable web applications using modern technologies. Collaborating with cross-functional teams to deliver high-quality software solutions.",
+                    achievements: JSON.stringify([
+                        "Architected and developed 5+ production applications serving 10K+ users",
+                        "Reduced application load time by 40% through optimization techniques",
+                        "Mentored 3 junior developers and established coding best practices"
+                    ]),
+                    technologies: JSON.stringify(["React", "Node.js", ".NET Core", "PostgreSQL", "AWS", "Docker"]),
+                    current: 1
+                },
+                {
+                    company: "StartupXYZ",
+                    position: "Full-Stack Developer",
+                    location: "San Francisco, CA",
+                    duration: "Jun 2021 - Dec 2022",
+                    type: "Full-time",
+                    description: "Developed and maintained multiple client-facing applications. Implemented new features and optimized existing codebase for better performance.",
+                    achievements: JSON.stringify([
+                        "Built 3 major features that increased user engagement by 25%",
+                        "Improved code quality by implementing TypeScript across the codebase",
+                        "Collaborated with designers to implement pixel-perfect UIs"
+                    ]),
+                    technologies: JSON.stringify(["React", "TypeScript", "Express", "MongoDB", "Redux"]),
+                    current: 0
+                },
+                {
+                    company: "Freelance",
+                    position: "Software Developer",
+                    location: "Remote",
+                    duration: "Jan 2020 - May 2021",
+                    type: "Contract",
+                    description: "Worked with various clients to build custom web applications and mobile apps. Delivered projects on time while maintaining high code quality standards.",
+                    achievements: JSON.stringify([
+                        "Delivered 15+ successful projects for various clients",
+                        "Maintained 100% client satisfaction rate",
+                        "Developed expertise in multiple tech stacks"
+                    ]),
+                    technologies: JSON.stringify(["Flutter", "React", "PHP", "MySQL", "Firebase"]),
+                    current: 0
+                }
+            ];
+
+            const stmt = db.prepare("INSERT INTO experiences (company, position, location, duration, type, description, achievements, technologies, current) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            experiences.forEach(exp => {
+                stmt.run(exp.company, exp.position, exp.location, exp.duration, exp.type, exp.description, exp.achievements, exp.technologies, exp.current);
+            });
+            stmt.finalize();
+        }
+    });
+
 };

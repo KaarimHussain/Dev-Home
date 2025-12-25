@@ -9,7 +9,8 @@ import {
     Contact,
     FileText,
     LogOut,
-    UserCircle
+    UserCircle,
+    Briefcase
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -25,6 +26,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         { label: "Projects", href: "/admin/projects", icon: FolderKanban },
         { label: "Contact", href: "/admin/contact", icon: Contact },
         { label: "Resume", href: "/admin/resume", icon: FileText },
+        { label: "Experience", href: "/admin/experience", icon: Briefcase },
     ];
 
     const handleLogout = async () => {
@@ -47,10 +49,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-8">
-                        <Link href="/admin/dashboard" className="text-xl bg-primary font-light bg-clip-text text-transparent">
-                            Kaarim's Dashboard
-                        </Link>
-
                         {/* Desktop Navigation */}
                         <nav className="hidden md:flex items-center gap-1">
                             {navItems.map((item) => {
