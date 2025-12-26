@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { db } from "../database";
 
 export async function GET() {
-    return new Promise((resolve) => {
+    return new Promise<NextResponse>((resolve) => {
         db.all("SELECT * FROM projects", (err, rows: any[]) => {
             if (err) {
                 resolve(NextResponse.json({ error: err.message }, { status: 500 }));
@@ -24,7 +24,7 @@ export async function GET() {
 export async function POST(request: Request) {
     try {
         const { title, description, category, type, tags, tech, favourite, images } = await request.json();
-        return new Promise((resolve) => {
+        return new Promise<NextResponse>((resolve) => {
             const stmt = db.prepare("INSERT INTO projects (title, description, category, type, tags, tech, favourite, images) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.run(
                 title,
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
     try {
         const { id, title, description, category, type, tags, tech, favourite, images } = await request.json();
-        return new Promise((resolve) => {
+        return new Promise<NextResponse>((resolve) => {
             const stmt = db.prepare("UPDATE projects SET title = ?, description = ?, category = ?, type = ?, tags = ?, tech = ?, favourite = ?, images = ? WHERE id = ?");
             stmt.run(
                 title,
@@ -84,7 +84,7 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
     try {
         const { id } = await request.json();
-        return new Promise((resolve) => {
+        return new Promise<NextResponse>((resolve) => {
             const stmt = db.prepare("DELETE FROM projects WHERE id = ?");
             stmt.run(id, function (err: any) {
                 if (err) {
