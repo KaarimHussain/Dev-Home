@@ -4,25 +4,25 @@ export default function FloatingSocials() {
     const socials = [
         {
             icon: Github,
-            href: "https://github.com/yourusername",
+            href: "https://github.com/KaarimHussain",
             label: "GitHub",
             color: "hover:text-[#333]"
         },
         {
             icon: Twitter,
-            href: "https://twitter.com/yourusername",
+            href: "https://x.com/KaarimHussain",
             label: "Twitter",
             color: "hover:text-[#1DA1F2]"
         },
         {
             icon: Instagram,
-            href: "https://instagram.com/yourusername",
+            href: "https://www.instagram.com/kaarimhussain/",
             label: "Instagram",
             color: "hover:text-[#E4405F]"
         },
         {
             icon: Linkedin,
-            href: "https://linkedin.com/in/yourusername",
+            href: "https://www.linkedin.com/in/kaarim-hussain-bb2559270/",
             label: "LinkedIn",
             color: "hover:text-[#0A66C2]"
         }
