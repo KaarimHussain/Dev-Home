@@ -92,17 +92,17 @@ export default function About() {
                     >
                         <div className="absolute -left-4 top-0 w-1 h-full bg-linear-to-b from-primary via-primary/50 to-transparent rounded-full" />
                         <h2 className="lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-semibold text-black/90 leading-tight pl-6">
-                            I'm a passionate{" "}
-                            <span className="text-primary font-bold relative inline-block">
-                                software engineer
+                            A{" "}
+                            <span className="text-primary font-light italic relative inline-block">
+                                Software Engineer
                                 <motion.span
-                                    className="absolute bottom-0 left-0 h-1 bg-primary/30 rounded-full"
+                                    className="absolute bottom-1 left-0 h-1 bg-primary/30 rounded-full"
                                     initial={{ width: 0 }}
                                     animate={isInView ? { width: "100%" } : {}}
                                     transition={{ duration: 0.8, delay: 0.4 }}
                                 />
                             </span>{" "}
-                            dedicated to crafting innovative digital solutions. With expertise in full-stack development, I transform complex problems into elegant, user-friendly applications that make a real impact.
+                            who loves building clean, scalable apps and making sure everything runs smoothly behind the scenes.
                         </h2>
                     </motion.div>
                 </motion.div>

@@ -151,7 +151,7 @@ export default function Hero() {
                         className="text-secondary-foreground/80 text-sm md:text-xl font-medium flex items-center gap-2"
                         variants={subtitleVariants}
                     >
-                        Passionate Software Engineer & Computer Science Student
+                        Software engineer and CS student who just loves building things.
                     </motion.p>
 
                     {/* Tech Stack with Individual Tooltips */}
