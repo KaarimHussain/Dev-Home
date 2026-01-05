@@ -1,9 +1,8 @@
-
 import { db } from "@/app/api/database"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowLeft, Layers, Star, Code2, ExternalLink, Hash, Sparkles } from "lucide-react"
+import { ArrowLeft, Layers, Star, Code2, ExternalLink, Hash, Sparkles, Monitor, Smartphone, Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface Project {
@@ -56,7 +55,7 @@ export default async function ProjectDetails({
                     background: `linear-gradient(180deg, var(--primary) 0%,var(--background) 50% ,var(--background) 100%)`,
                 }}
             >
-                {/* Header Section */}
+                {/* Header Section (Kept exactly as requested) */}
                 <div className="pt-20">
                     <div>
                         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-secondary-foreground mb-4 text-balance">
@@ -80,118 +79,160 @@ export default async function ProjectDetails({
                 </div>
             </div>
 
-            <div className="px-5 md:px-10 lg:px-20 xl:px-32 py-20 bg-background">
-                {/* Hero Section */}
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
-                    {/* Left Column: Info - Takes 2 columns */}
-                    <div className="lg:col-span-2 space-y-8">
-                        <Link href="/projects" className="flex items-center gap-2 text-gray-500 hover:text-gray-700 transition-colors group">
-                            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                            <span className="text-sm font-medium">Back to Projects</span>
-                        </Link>
-                        <div className="space-y-4">
-                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100">
-                                <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-                                <span className="text-xs font-medium text-indigo-700 uppercase tracking-wide">Overview</span>
-                            </div>
-                            <h2 className="lg:text-5xl md:text-4xl text-3xl font-bold text-gray-900">About this Project</h2>
-                        </div>
+            {/* IMPROVED MAIN CONTENT SECTION */}
+            <div className="px-5 md:px-10 lg:px-20 xl:px-32 py-20 bg-background border-t border-gray-100/50">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
 
-                        {/* Description */}
-                        <p className="text-lg text-gray-600 leading-relaxed">{project.description}</p>
+                    {/* LEFT COLUMN: Sticky Details Panel */}
+                    <div className="lg:col-span-5 relative order-2 lg:order-1">
+                        <div className="lg:sticky lg:top-32 space-y-10">
 
-                        {/* Action Buttons */}
-                        <div className="flex flex-wrap gap-4 pt-4">
-                            <Button size={"lg"}>
-                                <ExternalLink className="w-4 h-4" />
-                                View Live
-                            </Button>
-                            <Button size={"lg"} variant={"outline"}>
-                                <Code2 className="w-4 h-4" />
-                                Source Code
-                            </Button>
-                        </div>
-
-                        {/* Tech Stack */}
-                        <div className="space-y-4 pt-8 border-t border-gray-100">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
-                                    <Layers className="w-5 h-5 text-indigo-600" />
+                            {/* Navigation */}
+                            <Link href="/projects" className="inline-flex items-center gap-2 text-gray-400 hover:text-gray-900 transition-colors group mb-4">
+                                <div className="p-2 rounded-full bg-gray-50 group-hover:bg-gray-100 transition-colors">
+                                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                                 </div>
-                                <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Technologies</h3>
-                            </div>
-                            <div className="flex flex-wrap gap-2">
-                                {project.tech.map((tech) => (
-                                    <span
-                                        key={tech}
-                                        className="px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 text-gray-700 text-sm font-medium hover:bg-indigo-50 hover:border-indigo-200 hover:text-indigo-700 transition-all cursor-default"
-                                    >
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
+                                <span className="text-sm font-medium">Back to Projects</span>
+                            </Link>
 
-                        {/* Tags */}
-                        <div className="space-y-4 pt-6 border-t border-gray-100">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
-                                    <Hash className="w-5 h-5 text-emerald-600" />
+                            {/* Project Story */}
+                            <div className="space-y-6">
+                                <div className="space-y-2">
+                                    <div className="flex items-center gap-2 text-indigo-600">
+                                        <Sparkles className="w-4 h-4" />
+                                        <span className="text-xs font-bold uppercase tracking-widest">The Challenge & Solution</span>
+                                    </div>
+                                    <h2 className="text-3xl font-bold text-gray-900">About the Project</h2>
                                 </div>
-                                <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Tags</h3>
+                                <p className="text-lg text-gray-600 leading-relaxed font-light">
+                                    {project.description}
+                                </p>
                             </div>
-                            <div className="flex flex-wrap gap-3">
-                                {project.tags.map((tag) => (
-                                    <span
-                                        key={tag}
-                                        className="text-sm text-gray-500 hover:text-indigo-600 transition-colors font-medium cursor-pointer"
-                                    >
-                                        #{tag}
-                                    </span>
-                                ))}
+
+                            {/* CTAs */}
+                            <div className="flex flex-wrap gap-4 py-2">
+                                <Button className="h-12 px-8 rounded-xl shadow-lg shadow-indigo-200/50 hover:shadow-indigo-200/80 transition-all text-base">
+                                    <ExternalLink className="w-4 h-4 mr-2" />
+                                    View Live Project
+                                </Button>
+                                <Button variant="outline" className="h-12 px-8 rounded-xl border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900 text-base">
+                                    <Code2 className="w-4 h-4 mr-2" />
+                                    Source Code
+                                </Button>
+                            </div>
+
+                            {/* Detailed Metadata Grid */}
+                            <div className="grid grid-cols-1 gap-8 pt-8 border-t border-gray-100">
+
+                                {/* Tech Stack */}
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-2 text-gray-900">
+                                        <Layers className="w-5 h-5 text-gray-400" />
+                                        <h3 className="font-semibold text-sm uppercase tracking-wide">Tech Stack</h3>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {project.tech.map((tech) => (
+                                            <span
+                                                key={tech}
+                                                className="px-3 py-1.5 rounded-md bg-white border border-gray-200 text-gray-600 text-sm font-medium shadow-sm hover:border-indigo-200 hover:text-indigo-600 transition-colors cursor-default"
+                                            >
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Tags */}
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-2 text-gray-900">
+                                        <Hash className="w-5 h-5 text-gray-400" />
+                                        <h3 className="font-semibold text-sm uppercase tracking-wide">Key Topics</h3>
+                                    </div>
+                                    <div className="flex flex-wrap gap-x-4 gap-y-2">
+                                        {project.tags.map((tag) => (
+                                            <span
+                                                key={tag}
+                                                className="text-sm text-gray-500 hover:text-gray-900 transition-colors cursor-pointer underline decoration-gray-200 hover:decoration-indigo-500 underline-offset-4"
+                                            >
+                                                #{tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Right Column: Images - Takes 3 columns */}
-                    <div
-                        className={`gap-6 lg:col-span-3 ${project.type !== "desktop" ? "flex justify-center lg:justify-center" : "grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1"}`}
-                    >
-                        {/* Main Image */}
-                        <div
-                            className={`relative ${project.type !== "desktop"
-                                ? "aspect-9/16 w-[190px] lg:w-[300px] shrink-0"
-                                : "aspect-video max-w-[500px]"
-                                } rounded-2xl overflow-hidden border border-gray-200 bg-gray-50 shadow-2xl shadow-gray-200/60 group`}
-                        >
-                            <Image
-                                src={project.images[0] || "/placeholder.svg"}
-                                alt={`${project.title} preview`}
-                                fill
-                                className="object-cover group-hover:scale-[1.02] transition-transform duration-700 ease-out"
-                                priority
-                            />
-                            <div className="absolute inset-0 bg-linear-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        </div>
+                    {/* RIGHT COLUMN: Visual Showcase */}
+                    <div className="lg:col-span-7 space-y-16 order-1 lg:order-2">
+                        {project.images.map((img, index) => (
+                            <div key={index} className="group perspective-1000">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="h-px bg-gray-200 flex-1"></div>
+                                    <span className="text-xs font-medium text-gray-400 uppercase tracking-widest">
+                                        {index === 0 ? "Main View" : "Detail View"}
+                                    </span>
+                                    <div className="h-px bg-gray-200 flex-1"></div>
+                                </div>
 
-                        {/* Secondary Image (if exists) */}
-                        {project.images[1] && (
-                            <div
-                                className={`relative ${project.type !== "desktop"
-                                    ? "aspect-9/16 w-[190px] lg:w-[300px] shrink-0"
-                                    : "aspect-video max-w-[500px]"
-                                    } rounded-2xl overflow-hidden border border-gray-200 bg-gray-50 shadow-xl shadow-gray-200/50 group`}
-                            >
-                                <Image
-                                    src={project.images[1] || "/placeholder.svg"}
-                                    alt={`${project.title} additional preview`}
-                                    fill
-                                    className="object-cover group-hover:scale-[1.02] transition-transform duration-700 ease-out"
-                                />
-                                <div className="absolute inset-0 bg-linear-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                {/* Conditional Wrapper based on Type */}
+                                <div
+                                    className={`relative mx-auto transition-transform duration-700 ease-out group-hover:scale-[1.01] ${project.type === "mobile" ? "max-w-[320px]" : "w-full"
+                                        }`}
+                                >
+                                    {project.type === "desktop" ? (
+                                        // DESKTOP BROWSER FRAME
+                                        <div className="rounded-xl overflow-hidden bg-white border border-gray-200 shadow-2xl shadow-gray-200/50">
+                                            {/* Browser Bar */}
+                                            <div className="h-8 bg-gray-50 border-b border-gray-100 flex items-center px-4 gap-2">
+                                                <div className="flex gap-1.5">
+                                                    <div className="w-2.5 h-2.5 rounded-full bg-red-400/80"></div>
+                                                    <div className="w-2.5 h-2.5 rounded-full bg-amber-400/80"></div>
+                                                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/80"></div>
+                                                </div>
+                                                <div className="ml-4 flex-1 max-w-[400px] h-4 bg-white rounded-sm border border-gray-100"></div>
+                                            </div>
+                                            {/* Image */}
+                                            <div className="relative aspect-video w-full bg-gray-100">
+                                                <Image
+                                                    src={img || "/placeholder.svg"}
+                                                    alt={`${project.title} screenshot ${index + 1}`}
+                                                    fill
+                                                    className="object-cover object-top"
+                                                    priority={index === 0}
+                                                />
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        // MOBILE PHONE FRAME
+                                        <div className="rounded-[2.5rem] overflow-hidden bg-gray-900 border-[8px] border-gray-900 shadow-2xl shadow-gray-300">
+                                            <div className="relative aspect-[9/19] w-full bg-gray-800 rounded-[2rem] overflow-hidden">
+                                                {/* Notch Indicator */}
+                                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-6 bg-gray-900 rounded-b-xl z-10"></div>
+                                                <Image
+                                                    src={img || "/placeholder.svg"}
+                                                    alt={`${project.title} mobile screenshot ${index + 1}`}
+                                                    fill
+                                                    className="object-cover"
+                                                    priority={index === 0}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                        )}
+                        ))}
+
+                        {/* Visual Footer */}
+                        <div className="pt-10 flex justify-center text-gray-300">
+                            <div className="flex items-center gap-2">
+                                <div className="w-1 h-1 rounded-full bg-current"></div>
+                                <div className="w-1 h-1 rounded-full bg-current"></div>
+                                <div className="w-1 h-1 rounded-full bg-current"></div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </main>

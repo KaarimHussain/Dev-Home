@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Paperclip } from "lucide-react";
 import { Button } from "../ui/button";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
@@ -19,7 +19,7 @@ interface Project {
 }
 
 export default function Projects() {
-    const containerRef = useRef(null);
+    const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start end", "end start"]
@@ -47,6 +47,7 @@ export default function Projects() {
     return (
         <div className="min-h-screen bg-white relative">
             <div
+                ref={containerRef}
                 className="min-h-screen w-full bg-linear-to-b from-black to-black/95 px-5 md:px-10 lg:px-20 xl:px-32 py-20 relative overflow-hidden rounded-[50px]"
             >
                 <div className="mb-16">
@@ -58,79 +59,100 @@ export default function Projects() {
                         </div>
                     </h5>
                 </div>
-                <div className="mb-5 mt-50 container mx-auto max-w-7xl px-5" ref={containerRef}>
-                    {projects.map((project, index) => (
-                        <div key={project.id}>
-                            <div className="flex items-center justify-center flex-col lg:gap-10 md:gap-8 sm:gap-5 mb-30">
-                                <div className="flex gap-2 flex-col items-center">
-                                    <span className="text-md font-light font-inter text-white/80 uppercase">
-                                        {project.type === 'desktop' ? 'Web Application' : 'Mobile Application'}
-                                    </span>
-                                    {/* divider */}
-                                    <div className="w-60 h-px bg-white/20"></div>
-                                </div>
-                                <div className="relative">
-                                    <motion.img
-                                        style={{ y: y1 }}
-                                        src={project.images[0]}
-                                        className={
-                                            project.type === 'mobile'
-                                                ? "aspect-9/16 hidden md:block lg:w-[150px] md:w-[100px] w-[75px] absolute lg:top-10 lg:-left-30 md:top-20 md:-left-15 top-10 -left-5 z-1 object-center object-cover rounded-2xl"
-                                                : "aspect-video hidden md:block lg:w-[300px] md:w-[200px] w-[150px] absolute lg:top-0 lg:-left-50 md:top-10 md:-left-30 top-5 -left-10 z-1 object-center object-cover rounded-2xl"
-                                        }
-                                        alt=""
-                                    />
-                                    <div className="flex flex-col items-center justify-center gap-5">
-                                        {/* title */}
-                                        <h2 className="z-2 lg:text-[170px] md:text-[100px] sm:text-[80px] text-[60px] font-semibold font-inter bg-linear-to-r from-white to-primary bg-clip-text text-transparent relative leading-[150px] text-center overflow-visible mix-blend-difference">
-                                            {project.title}
-                                        </h2>
-                                    </div>
+                {projects.length === 0 ? (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex flex-col items-center justify-center py-24 px-6 text-center bg-zinc-900 rounded-3xl border-2 border-dashed border-gray-700"
+                    >
+                        <div className="relative mb-6">
+                            <div className="absolute inset-0 bg-primary/5 blur-2xl rounded-full" />
+                            <div className="relative p-5 bg-zinc-800 rounded-2xl border border-gray-600 shadow-sm">
+                                <Paperclip className="w-12 h-12 text-primary/90" />
+                            </div>
+                        </div>
+                        <h3 className="text-2xl font-bold text-gray-300 mb-2">No Projects Found</h3>
+                        <p className="text-gray-400 max-w-sm mx-auto">
+                            It looks like there aren't any projects listed here yet.
+                        </p>
+                    </motion.div>
+                ) : (
+                    <>
+                        <div className="mb-5 mt-50 container mx-auto max-w-7xl px-5">
+                            {projects.map((project, index) => (
+                                <div key={project.id}>
+                                    <div className="flex items-center justify-center flex-col lg:gap-10 md:gap-8 sm:gap-5 mb-30">
+                                        <div className="flex gap-2 flex-col items-center">
+                                            <span className="text-md font-light font-inter text-white/80 uppercase">
+                                                {project.type === 'desktop' ? 'Web Application' : 'Mobile Application'}
+                                            </span>
+                                            {/* divider */}
+                                            <div className="w-60 h-px bg-white/20"></div>
+                                        </div>
+                                        <div className="relative">
+                                            <motion.img
+                                                style={{ y: y1 }}
+                                                src={project.images[0]}
+                                                className={
+                                                    project.type === 'mobile'
+                                                        ? "aspect-9/16 hidden md:block lg:w-[150px] md:w-[100px] w-[75px] absolute lg:top-10 lg:-left-30 md:top-20 md:-left-15 top-10 -left-5 z-1 object-center object-cover rounded-2xl"
+                                                        : "aspect-video hidden md:block lg:w-[300px] md:w-[200px] w-[150px] absolute lg:top-0 lg:-left-50 md:top-10 md:-left-30 top-5 -left-10 z-1 object-center object-cover rounded-2xl"
+                                                }
+                                                alt=""
+                                            />
+                                            <div className="flex flex-col items-center justify-center gap-5">
+                                                {/* title */}
+                                                <h2 className="z-2 lg:text-[170px] md:text-[100px] sm:text-[80px] text-[60px] font-semibold font-inter bg-linear-to-r from-white to-primary bg-clip-text text-transparent relative leading-[150px] text-center overflow-visible mix-blend-difference">
+                                                    {project.title}
+                                                </h2>
+                                            </div>
 
-                                    {project.images[1] && (
-                                        <motion.img
-                                            style={{ y: y2 }}
-                                            src={project.images[1]}
-                                            className={
-                                                project.type === 'mobile' ?
-                                                    "aspect-9/16 hidden md:block lg:w-[150px] md:w-[100px] w-[75px] absolute lg:top-30 lg:-right-50 md:top-20 md:-right-30 top-10 -right-10 z-0 object-center object-cover rounded-2xl" :
-                                                    "aspect-video hidden md:block lg:w-[300px] md:w-[200px] w-[150px] absolute lg:top-30 lg:-right-50 md:top-20 md:-right-30 top-10 -right-10 z-0 object-center object-cover rounded-2xl"}
-                                            alt=""
-                                        />
+                                            {project.images[1] && (
+                                                <motion.img
+                                                    style={{ y: y2 }}
+                                                    src={project.images[1]}
+                                                    className={
+                                                        project.type === 'mobile' ?
+                                                            "aspect-9/16 hidden md:block lg:w-[150px] md:w-[100px] w-[75px] absolute lg:top-30 lg:-right-50 md:top-20 md:-right-30 top-10 -right-10 z-0 object-center object-cover rounded-2xl" :
+                                                            "aspect-video hidden md:block lg:w-[300px] md:w-[200px] w-[150px] absolute lg:top-30 lg:-right-50 md:top-20 md:-right-30 top-10 -right-10 z-0 object-center object-cover rounded-2xl"}
+                                                    alt=""
+                                                />
+                                            )}
+                                        </div>
+                                        <div className="flex flex-col items-center justify-between gap-5 max-w-xl">
+                                            <p className="lg:text-2xl md:text-xl text-lg text-white font-light text-center italic z-5 mix-blend-difference">
+                                                "{project.description}"
+                                            </p>
+                                            <div className="flex flex-wrap justify-center gap-2 mb-2 mt-2 z-1">
+                                                {project.tech.map((techItem, techIndex) => (
+                                                    <span
+                                                        key={techIndex}
+                                                        className="bg-transparent border border-white/50 text-white text-xs px-3 py-1 rounded-full font-fira"
+                                                    >
+                                                        {techItem}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                            <Button size={"lg"} className="rounded-full cursor-pointer">
+                                                View Details <ArrowRight />
+                                            </Button>
+                                        </div>
+                                    </div>
+                                    {index < projects.length - 1 && (
+                                        <div className="bg-linear-to-r from-transparent via-white to-transparent h-1 w-full my-50" ></div>
                                     )}
                                 </div>
-                                <div className="flex flex-col items-center justify-between gap-5 max-w-xl">
-                                    <p className="lg:text-2xl md:text-xl text-lg text-white font-light text-center italic z-5 mix-blend-difference">
-                                        "{project.description}"
-                                    </p>
-                                    <div className="flex flex-wrap justify-center gap-2 mb-2 mt-2 z-1">
-                                        {project.tech.map((techItem, techIndex) => (
-                                            <span
-                                                key={techIndex}
-                                                className="bg-transparent border border-white/50 text-white text-xs px-3 py-1 rounded-full font-fira"
-                                            >
-                                                {techItem}
-                                            </span>
-                                        ))}
-                                    </div>
-                                    <Button size={"lg"} className="rounded-full cursor-pointer">
-                                        View Details <ArrowRight />
-                                    </Button>
-                                </div>
-                            </div>
-                            {index < projects.length - 1 && (
-                                <div className="bg-linear-to-r from-transparent via-white to-tranparent h-1 w-full my-50" ></div>
-                            )}
+                            ))}
                         </div>
-                    ))}
-                </div>
-                <div className="w-full flex items-center justify-center">
-                    <Link href={"/projects"} className="mx-auto">
-                        <Button size={"lg"} className="rounded-full cursor-pointer">
-                            <ArrowRight /> View All Projects
-                        </Button>
-                    </Link>
-                </div>
+                        <div className="w-full flex items-center justify-center">
+                            <Link href={"/projects"} className="mx-auto">
+                                <Button size={"lg"} className="rounded-full cursor-pointer">
+                                    <ArrowRight /> View All Projects
+                                </Button>
+                            </Link>
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );

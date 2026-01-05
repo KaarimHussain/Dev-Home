@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { db } from "../database";
 
 export async function GET() {
-    return new Promise((resolve) => {
+    return new Promise<NextResponse>((resolve) => {
         // Fetch the first resume entry. In a real app allowing multiple, this would be different.
         // For now, we assume one active resume or we take the latest.
         db.get("SELECT * FROM resume ORDER BY id DESC LIMIT 1", (err, row) => {
@@ -21,7 +21,7 @@ export async function GET() {
 export async function POST(request: Request) {
     try {
         const { url, label } = await request.json();
-        return new Promise((resolve) => {
+        return new Promise<NextResponse>((resolve) => {
             // First check if a row exists
             db.get("SELECT count(*) as count FROM resume", (err, row: any) => {
                 if (row && row.count > 0) {

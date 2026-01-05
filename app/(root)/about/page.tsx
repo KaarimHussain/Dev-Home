@@ -10,7 +10,6 @@ export default function AboutPage() {
     return (
         <main ref={containerRef} className="relative w-full min-h-screen bg-background overflow-hidden">
             <HeroSection />
-
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
                 <AboutMeSection />
                 <JourneySection />

@@ -10,35 +10,44 @@ export async function POST(request: Request) {
         const { action, username, password } = await request.json();
 
         if (action === 'login') {
-            return new Promise((resolve) => {
-                db.get("SELECT * FROM admins WHERE username = ? AND password = ?", [username, password], async (err, row: any) => {
-                    if (err) {
-                        resolve(NextResponse.json({ error: "Database error" }, { status: 500 }));
-                        return;
-                    }
-
-                    if (row) {
-                        // Create JWT
-                        const token = await new SignJWT({ sub: row.id, username: row.username })
-                            .setProtectedHeader({ alg: 'HS256' })
-                            .setExpirationTime('24h')
-                            .sign(SECRET_KEY);
-
-                        // Set Cookie
-                        const cookieStore = await cookies();
-                        cookieStore.set('auth_token', token, {
-                            httpOnly: true,
-                            secure: process.env.NODE_ENV === 'production',
-                            maxAge: 60 * 60 * 24, // 24 hours
-                            path: '/',
-                        });
-
-                        resolve(NextResponse.json({ success: true }));
-                    } else {
-                        resolve(NextResponse.json({ error: "Invalid credentials" }, { status: 401 }));
-                    }
+            // Promisify the database call to keep it out of the request context danger zone
+            const getUser = () => {
+                return new Promise<any>((resolve, reject) => {
+                    db.get("SELECT * FROM admins WHERE username = ? AND password = ?", [username, password], (err, row) => {
+                        if (err) reject(err);
+                        else resolve(row);
+                    });
                 });
-            });
+            };
+
+            try {
+                const row = await getUser();
+
+                if (row) {
+                    // Create JWT
+                    const token = await new SignJWT({ sub: row.id, username: row.username })
+                        .setProtectedHeader({ alg: 'HS256' })
+                        .setExpirationTime('24h')
+                        .sign(SECRET_KEY);
+
+                    // Set Cookie - Now called in the main request context
+                    const cookieStore = await cookies();
+                    cookieStore.set('auth_token', token, {
+                        httpOnly: true,
+                        secure: process.env.NODE_ENV === 'production',
+                        maxAge: 60 * 60 * 24, // 24 hours
+                        path: '/',
+                    });
+
+                    return NextResponse.json({ success: true });
+                } else {
+                    return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
+                }
+            } catch (dbError) {
+                console.error(dbError);
+                return NextResponse.json({ error: "Database error" }, { status: 500 });
+            }
+
         } else if (action === 'logout') {
             const cookieStore = await cookies();
             cookieStore.delete('auth_token');

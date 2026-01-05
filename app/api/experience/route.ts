@@ -1,19 +1,17 @@
-
 import { NextResponse } from 'next/server';
 import { db } from "../database";
 
 export async function GET() {
     return new Promise<NextResponse>((resolve) => {
-        db.all("SELECT * FROM projects", (err, rows: any[]) => {
+        db.all("SELECT * FROM experiences", (err, rows: any[]) => {
             if (err) {
                 resolve(NextResponse.json({ error: err.message }, { status: 500 }));
             } else {
                 const parsedRows = rows.map(row => ({
                     ...row,
-                    tags: JSON.parse(row.tags),
-                    tech: JSON.parse(row.tech),
-                    images: JSON.parse(row.images),
-                    favourite: Boolean(row.favourite)
+                    achievements: JSON.parse(row.achievements),
+                    technologies: JSON.parse(row.technologies),
+                    current: Boolean(row.current)
                 }));
                 resolve(NextResponse.json(parsedRows));
             }
@@ -23,18 +21,19 @@ export async function GET() {
 
 export async function POST(request: Request) {
     try {
-        const { title, description, category, type, tags, tech, favourite, images } = await request.json();
+        const { company, position, location, duration, type, description, achievements, technologies, current } = await request.json();
         return new Promise<NextResponse>((resolve) => {
-            const stmt = db.prepare("INSERT INTO projects (title, description, category, type, tags, tech, favourite, images) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            const stmt = db.prepare("INSERT INTO experiences (company, position, location, duration, type, description, achievements, technologies, current) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.run(
-                title,
-                description,
-                category,
+                company,
+                position,
+                location,
+                duration,
                 type,
-                JSON.stringify(tags),
-                JSON.stringify(tech),
-                favourite ? 1 : 0,
-                JSON.stringify(images),
+                description,
+                JSON.stringify(achievements),
+                JSON.stringify(technologies),
+                current ? 1 : 0,
                 function (err: any) {
                     if (err) {
                         resolve(NextResponse.json({ error: err.message }, { status: 500 }));
@@ -53,18 +52,19 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
     try {
-        const { id, title, description, category, type, tags, tech, favourite, images } = await request.json();
+        const { id, company, position, location, duration, type, description, achievements, technologies, current } = await request.json();
         return new Promise<NextResponse>((resolve) => {
-            const stmt = db.prepare("UPDATE projects SET title = ?, description = ?, category = ?, type = ?, tags = ?, tech = ?, favourite = ?, images = ? WHERE id = ?");
+            const stmt = db.prepare("UPDATE experiences SET company = ?, position = ?, location = ?, duration = ?, type = ?, description = ?, achievements = ?, technologies = ?, current = ? WHERE id = ?");
             stmt.run(
-                title,
-                description,
-                category,
+                company,
+                position,
+                location,
+                duration,
                 type,
-                JSON.stringify(tags),
-                JSON.stringify(tech),
-                favourite ? 1 : 0,
-                JSON.stringify(images),
+                description,
+                JSON.stringify(achievements),
+                JSON.stringify(technologies),
+                current ? 1 : 0,
                 id,
                 function (err: any) {
                     if (err) {
@@ -85,7 +85,7 @@ export async function DELETE(request: Request) {
     try {
         const { id } = await request.json();
         return new Promise<NextResponse>((resolve) => {
-            const stmt = db.prepare("DELETE FROM projects WHERE id = ?");
+            const stmt = db.prepare("DELETE FROM experiences WHERE id = ?");
             stmt.run(id, function (err: any) {
                 if (err) {
                     resolve(NextResponse.json({ error: err.message }, { status: 500 }));

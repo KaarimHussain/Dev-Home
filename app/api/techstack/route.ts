@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { db } from "../database";
 
 export async function GET() {
-    return new Promise((resolve) => {
+    return new Promise<NextResponse>((resolve) => {
         db.all("SELECT * FROM tech_stack", (err, rows) => {
             if (err) {
                 resolve(NextResponse.json({ error: err.message }, { status: 500 }));
@@ -17,7 +17,7 @@ export async function GET() {
 export async function POST(request: Request) {
     try {
         const { name, icon, color, category } = await request.json();
-        return new Promise((resolve) => {
+        return new Promise<NextResponse>((resolve) => {
             const stmt = db.prepare("INSERT INTO tech_stack (name, icon, color, category) VALUES (?, ?, ?, ?)");
             stmt.run(name, icon, color, category, function (err: any) {
                 if (err) {
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
     try {
         const { id, name, icon, color, category } = await request.json();
-        return new Promise((resolve) => {
+        return new Promise<NextResponse>((resolve) => {
             const stmt = db.prepare("UPDATE tech_stack SET name = ?, icon = ?, color = ?, category = ? WHERE id = ?");
             stmt.run(name, icon, color, category, id, function (err: any) {
                 if (err) {
@@ -56,7 +56,7 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
     try {
         const { id } = await request.json();
-        return new Promise((resolve) => {
+        return new Promise<NextResponse>((resolve) => {
             const stmt = db.prepare("DELETE FROM tech_stack WHERE id = ?");
             stmt.run(id, function (err: any) {
                 if (err) {
