@@ -18,8 +18,31 @@ export const metadata: Metadata = {
     default: "Kaarim Hussain | Full Stack Developer & UI/UX Engineer",
     template: "%s | Kaarim Hussain",
   },
-  description: "Expert Full Stack Developer specializing in Next.js, React, and modern web solutions. Explore my portfolio of high-performance web and mobile applications.",
-  keywords: ["Full Stack Developer", "Web Developer", "React Developer", "Next.js", "TypeScript", "Tailwind CSS", "Kaarim Hussain", "Portfolio", "UI/UX Design", "Mobile App Developer", "Flutter"],
+  description: "Expert Full Stack Developer specializing in Next.js, .NET, and modern web solutions. Explore my portfolio of high-performance web and mobile applications.",
+  keywords: [
+    "Kaarim Hussain",
+    "Full Stack Developer",
+    "Senior Web Developer",
+    "UI/UX Engineer",
+    "Next.js Expert",
+    "React Developer",
+    "TypeScript Engineer",
+    ".NET Core Developer",
+    "ASP.NET Specialist",
+    "Flutter Mobile Developer",
+    "PHP Laravel Developer",
+    "Modern Web Solutions",
+    "Responsive Web Design",
+    "Software Engineer Portfolio",
+    "Web Application Development",
+    "High Performance Websites",
+    "User Experience Design",
+    "Frontend Engineer",
+    "Backend Developer",
+    "Custom Software Development",
+    "Mobile App Development",
+    "Scalable Web Applications",
+  ],
   creator: "Kaarim Hussain",
   icons: {
     icon: "/images/Logo-White.png",
@@ -29,7 +52,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Kaarim Hussain | Full Stack Developer",
     description: "Building exceptional digital experiences with modern technologies. Explore my projects and skills.",
-    url: "https://kaarimhussain.com", // Placeholder, change if user provides actual domain
+    url: "https://my-home-rho-one.vercel.app/", // Placeholder, change if user provides actual domain
     siteName: "Kaarim Hussain Portfolio",
     images: [
       {
@@ -44,8 +67,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "https://my-home-rho-one.vercel.app/",
+    creator: "Kaarim Hussain",
     title: "Kaarim Hussain | Full Stack Developer",
-    description: "Expert Full Stack Developer specializing in Next.js, React, and modern web solutions.",
+    description: "Expert Full Stack Developer specializing in Next.js, .NET, and modern web solutions.",
     images: ["/images/Open-Graph-Preview.png"],
   },
   robots: {
