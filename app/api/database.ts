@@ -2,17 +2,31 @@ import path from "path";
 import sqlite3 from "sqlite3";
 
 const dbPath = path.join(process.cwd(), "profile.db");
-export const db = new sqlite3.Database(
-    dbPath,
-    sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
-    (err) => {
-        if (err) {
-            console.error(err.message);
+
+// Singleton pattern for Next.js HMR
+let db: sqlite3.Database;
+
+if ((global as any).sqliteDb) {
+    db = (global as any).sqliteDb;
+} else {
+    db = new sqlite3.Database(
+        dbPath,
+        sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
+        (err) => {
+            if (err) {
+                console.error("Failed to connect to database:", err.message);
+            } else {
+                console.log("Connected to the profile database.");
+                initDb();
+            }
         }
-        console.log("Connected to the profile database.");
-        initDb();
+    );
+    if (process.env.NODE_ENV !== "production") {
+        (global as any).sqliteDb = db;
     }
-);
+}
+
+export { db };
 
 const initDb = () => {
     db.serialize(() => {
