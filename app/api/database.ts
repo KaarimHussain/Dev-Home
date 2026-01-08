@@ -2,35 +2,17 @@ import path from "path";
 import sqlite3 from "sqlite3";
 
 const dbPath = path.join(process.cwd(), "profile.db");
-
-// Singleton pattern for Next.js HMR
-let db: sqlite3.Database;
-
-if ((global as any).sqliteDb) {
-    db = (global as any).sqliteDb;
-} else {
-    db = new sqlite3.Database(
-        dbPath,
-        sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
-        (err) => {
-            if (err) {
-                console.error("Failed to connect to database at " + dbPath + ":", err.message);
-            } else {
-                console.log("Connected to the profile database at:", dbPath);
-                db.exec("PRAGMA journal_mode = WAL;", (err) => {
-                    if (err) console.error("Failed to enable WAL mode:", err);
-                    else console.log("WAL mode enabled");
-                });
-                initDb();
-            }
+export const db = new sqlite3.Database(
+    dbPath,
+    sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
+    (err) => {
+        if (err) {
+            console.error(err.message);
         }
-    );
-    if (process.env.NODE_ENV !== "production") {
-        (global as any).sqliteDb = db;
+        console.log("Connected to the profile database.");
+        initDb();
     }
-}
-
-export { db };
+);
 
 const initDb = () => {
     db.serialize(() => {
