@@ -14,9 +14,13 @@ if ((global as any).sqliteDb) {
         sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
         (err) => {
             if (err) {
-                console.error("Failed to connect to database:", err.message);
+                console.error("Failed to connect to database at " + dbPath + ":", err.message);
             } else {
-                console.log("Connected to the profile database.");
+                console.log("Connected to the profile database at:", dbPath);
+                db.exec("PRAGMA journal_mode = WAL;", (err) => {
+                    if (err) console.error("Failed to enable WAL mode:", err);
+                    else console.log("WAL mode enabled");
+                });
                 initDb();
             }
         }
