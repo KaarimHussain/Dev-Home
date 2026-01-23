@@ -1,4 +1,5 @@
 import AboutMe from "@/components/home/about-me";
+import Achievements from "@/components/home/achievements";
 import Contact from "@/components/home/contact";
 import Experience from "@/components/home/experience";
 import Hero from "@/components/home/hero";
@@ -11,9 +12,10 @@ export default function Home() {
       <div className="min-h-screen w-full bg-background">
         <Hero />
         <AboutMe />
+        <Techstack />
         <Projects />
         <Experience />
-        <Techstack />
+        <Achievements />
         <Contact />
       </div>
     </>

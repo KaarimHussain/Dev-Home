@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { db } from "../database";
+import { db } from "@/lib/firebase";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { SignJWT } from 'jose';
 import { cookies } from 'next/headers';
 
@@ -10,27 +11,46 @@ export async function POST(request: Request) {
         const { action, username, password } = await request.json();
 
         if (action === 'login') {
-            // Promisify the database call to keep it out of the request context danger zone
-            const getUser = () => {
-                return new Promise<any>((resolve, reject) => {
-                    db.get("SELECT * FROM admins WHERE username = ? AND password = ?", [username, password], (err, row) => {
-                        if (err) reject(err);
-                        else resolve(row);
-                    });
+            // Priority 1: Check Environment Variables
+            const envUsername = process.env.ADMIN_USERNAME;
+            const envPassword = process.env.ADMIN_PASSWORD;
+
+            if (envUsername && envPassword && username === envUsername && password === envPassword) {
+                // Create JWT for Env Admin
+                const token = await new SignJWT({ sub: 'admin-env', username: envUsername })
+                    .setProtectedHeader({ alg: 'HS256' })
+                    .setExpirationTime('24h')
+                    .sign(SECRET_KEY);
+
+                // Set Cookie
+                const cookieStore = await cookies();
+                cookieStore.set('auth_token', token, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === 'production',
+                    maxAge: 60 * 60 * 24, // 24 hours
+                    path: '/',
                 });
-            };
 
+                return NextResponse.json({ success: true });
+            }
+
+            // Priority 2: Check Firestore (Fallback)
             try {
-                const row = await getUser();
+                const adminsRef = collection(db, "admins");
+                const q = query(adminsRef, where("username", "==", username), where("password", "==", password));
+                const querySnapshot = await getDocs(q);
 
-                if (row) {
+                if (!querySnapshot.empty) {
+                    const userDoc = querySnapshot.docs[0];
+                    const userData = userDoc.data();
+
                     // Create JWT
-                    const token = await new SignJWT({ sub: row.id, username: row.username })
+                    const token = await new SignJWT({ sub: userDoc.id, username: userData.username })
                         .setProtectedHeader({ alg: 'HS256' })
                         .setExpirationTime('24h')
                         .sign(SECRET_KEY);
 
-                    // Set Cookie - Now called in the main request context
+                    // Set Cookie
                     const cookieStore = await cookies();
                     cookieStore.set('auth_token', token, {
                         httpOnly: true,

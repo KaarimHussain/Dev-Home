@@ -55,7 +55,7 @@ export default function Projects() {
         <div className="mb-16 lg:px-20">
           <h5 className="text-lg text-white/70 font-inter mb-5 flex items-center gap-5">
             <span className="font-fira text-primary font-bold lg:text-7xl md:text-6xl sm:text-5xl text-4xl">
-              02
+              04
             </span>
             <div className="lg:h-15 md:h-10 h-7 bg-primary w-1"></div>
             <div className="border border-primary bg-transparent rounded-full px-3 text-xs w-fit text-primary font-fira">
@@ -97,7 +97,7 @@ export default function Projects() {
                           src={project.images[0]}
                           className={
                             project.type === "mobile"
-                              ? "aspect-[9/16] w-[100px] lg:w-[140px] object-cover rounded-2xl shadow-2xl opacity-80"
+                              ? "aspect-9/16 w-[100px] lg:w-[140px] object-cover rounded-2xl shadow-2xl opacity-80"
                               : "aspect-video w-[200px] lg:w-[280px] object-cover rounded-2xl shadow-2xl opacity-80"
                           }
                           alt=""
@@ -159,7 +159,7 @@ export default function Projects() {
                             src={project.images[1]}
                             className={
                               project.type === "mobile"
-                                ? "aspect-[9/16] w-[100px] lg:w-[140px] object-cover rounded-2xl shadow-2xl opacity-80"
+                                ? "aspect-9/16 w-[100px] lg:w-[140px] object-cover rounded-2xl shadow-2xl opacity-80"
                                 : "aspect-video w-[200px] lg:w-[280px] object-cover rounded-2xl shadow-2xl opacity-80"
                             }
                             alt=""
@@ -171,7 +171,7 @@ export default function Projects() {
 
                   {/* Separator Line */}
                   {index < projects.length - 1 && (
-                    <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mt-32"></div>
+                    <div className="w-full h-px bg-linear-to-r from-transparent via-white/10 to-transparent mt-32"></div>
                   )}
                 </div>
               ))}

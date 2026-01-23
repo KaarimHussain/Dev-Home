@@ -143,11 +143,10 @@ export default function ProjectsPage() {
                       onClick={() => toggleType(type)}
                       aria-pressed={selectedTypes.includes(type)}
                       aria-label={`Filter by ${type} type`}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
-                        selectedTypes.includes(type)
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${selectedTypes.includes(type)
                           ? "bg-primary text-primary-foreground shadow-md scale-105"
                           : "bg-background border border-border text-foreground hover:bg-accent hover:border-primary/50 hover:scale-105"
-                      }`}
+                        }`}
                     >
                       {type}
                     </button>
@@ -173,11 +172,10 @@ export default function ProjectsPage() {
                       onClick={() => toggleTag(tag)}
                       aria-pressed={selectedTags.includes(tag)}
                       aria-label={`Filter by ${tag} tag`}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
-                        selectedTags.includes(tag)
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${selectedTags.includes(tag)
                           ? "bg-primary text-primary-foreground shadow-md scale-105"
                           : "bg-background border border-border text-foreground hover:bg-accent hover:border-primary/50 hover:scale-105"
-                      }`}
+                        }`}
                     >
                       {tag}
                     </button>
@@ -224,91 +222,106 @@ export default function ProjectsPage() {
             </div>
           ) : (
             <div className="space-y-16">
-              {filteredProjects.map((project, index) => (
-                <Link
-                  className="mb-5"
-                  href={"/project-details/" + project.id}
-                  key={index}
-                >
-                  <div
-                    key={index}
-                    className="group w-full bg-background rounded-lg border border-border hover:border-primary/50 p-5 overflow-hidden transition-all duration-200 cursor-pointer my-5"
-                  >
-                    {/* Header */}
-                    <div className="flex items-center justify-end gap-5 relative">
-                      <ArrowRight className="cursor-pointer" size={30} />
-                      {/* Decoration */}
-                      <div className="absolute -top-15 -right-15 w-50 h-50 duration-300 transition-all ease-in-out group-hover:bg-primary/60 filter blur-3xl rounded-full"></div>
-                    </div>
-                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between mt-10 gap-8 md:gap-10">
-                      <div
-                        className={`flex flex-col items-start justify-center gap-3 shrink-0 ${project.type === "desktop" ? "md:w-2/5 lg:w-1/3" : "w-full md:w-2/5 lg:w-2/3"}`}
-                      >
-                        <h2 className="text-4xl md:text-5xl font-semibold leading-tight">
-                          {project.title}
-                        </h2>
-                        <p className="text-muted-foreground text-sm md:text-base">
-                          {project.description}
-                        </p>
-                        <div className="flex flex-wrap gap-2 mt-2">
-                          {project.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="px-3 py-1 rounded-full text-xs font-medium text-primary bg-primary/10 border border-primary"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      <div
-                        className={`grow flex justify-center ${project.type === "desktop" ? "md:w-3/5 lg:w-2/3 md:justify-end" : "w-full md:w-3/5 lg:w-3/5 md:justify-end"}`}
-                      >
-                        {project.type === "desktop" ? (
-                          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full">
-                            <Image
-                              src={project.images[0]}
-                              alt={`${project.title} screenshot 1`}
-                              width={400}
-                              height={225}
-                              className="aspect-video w-full sm:w-1/2 object-cover object-center rounded-lg shadow-lg -rotate-12 left-7 top-20 group-hover:top-0 group-hover:left-0 duration-200 transition-all relative"
-                            />
+              {filteredProjects.map((project, index) => {
+                // Helper to handle local images by converting to relative path
+                const getImageSrc = (src: string) => {
+                  if (src && (src.startsWith('http://localhost') || src.startsWith('http://127.0.0.1'))) {
+                    try {
+                      const url = new URL(src);
+                      return url.pathname + url.search;
+                    } catch (e) {
+                      return src;
+                    }
+                  }
+                  return src;
+                };
 
-                            {project.images[1] && (
-                              <Image
-                                src={project.images[1]}
-                                alt={`${project.title} screenshot 2`}
-                                width={600}
-                                height={337}
-                                className="aspect-video w-full sm:w-1/2 object-cover object-center rounded-lg shadow-lg rotate-12 right-7 top-20 group-hover:top-0 group-hover:right-0 duration-200 transition-all relative"
-                              />
-                            )}
+                return (
+                  <Link
+                    className="mb-5"
+                    href={"/project-details/" + project.id}
+                    key={index}
+                  >
+                    <div
+                      key={index}
+                      className="group w-full bg-background rounded-lg border border-border hover:border-primary/50 p-5 overflow-hidden transition-all duration-200 cursor-pointer my-5"
+                    >
+                      {/* Header */}
+                      <div className="flex items-center justify-end gap-5 relative">
+                        <ArrowRight className="cursor-pointer" size={30} />
+                        {/* Decoration */}
+                        <div className="absolute -top-15 -right-15 w-50 h-50 duration-300 transition-all ease-in-out group-hover:bg-primary/60 filter blur-3xl rounded-full"></div>
+                      </div>
+                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mt-10 gap-8 md:gap-10">
+                        <div
+                          className={`flex flex-col items-start justify-center gap-3 shrink-0 ${project.type === "desktop" ? "md:w-2/5 lg:w-1/3" : "w-full md:w-2/5 lg:w-2/3"}`}
+                        >
+                          <h2 className="text-4xl md:text-5xl font-semibold leading-tight">
+                            {project.title}
+                          </h2>
+                          <p className="text-muted-foreground text-sm md:text-base">
+                            {project.description}
+                          </p>
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {project.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="px-3 py-1 rounded-full text-xs font-medium text-primary bg-primary/10 border border-primary"
+                              >
+                                {tag}
+                              </span>
+                            ))}
                           </div>
-                        ) : (
-                          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full">
-                            <Image
-                              src={project.images[0]}
-                              alt={`${project.title} main image`}
-                              className="object-cover rounded-lg shadow-lg aspect-9/16 -rotate-12 left-7 top-20 group-hover:top-0 group-hover:left-0 duration-200 transition-all relative"
-                              width={200}
-                              height={200}
-                            />
-                            {project.images[1] && (
+                        </div>
+                        <div
+                          className={`grow flex justify-center ${project.type === "desktop" ? "md:w-3/5 lg:w-2/3 md:justify-end" : "w-full md:w-3/5 lg:w-3/5 md:justify-end"}`}
+                        >
+                          {project.type === "desktop" ? (
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full">
                               <Image
-                                src={project.images[1]}
+                                src={getImageSrc(project.images[0])}
+                                alt={`${project.title} screenshot 1`}
+                                width={400}
+                                height={225}
+                                className="aspect-video w-full sm:w-1/2 object-cover object-center rounded-lg shadow-lg -rotate-12 left-7 top-20 group-hover:top-0 group-hover:left-0 duration-200 transition-all relative"
+                              />
+
+                              {project.images[1] && (
+                                <Image
+                                  src={getImageSrc(project.images[1])}
+                                  alt={`${project.title} screenshot 2`}
+                                  width={600}
+                                  height={337}
+                                  className="aspect-video w-full sm:w-1/2 object-cover object-center rounded-lg shadow-lg rotate-12 right-7 top-20 group-hover:top-0 group-hover:right-0 duration-200 transition-all relative"
+                                />
+                              )}
+                            </div>
+                          ) : (
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full">
+                              <Image
+                                src={getImageSrc(project.images[0])}
                                 alt={`${project.title} main image`}
-                                className="object-cover rounded-lg shadow-lg aspect-9/16 rotate-12 right-7 top-20 group-hover:top-0 group-hover:right-0 duration-200 transition-all relative"
+                                className="object-cover rounded-lg shadow-lg aspect-9/16 -rotate-12 left-7 top-20 group-hover:top-0 group-hover:left-0 duration-200 transition-all relative"
                                 width={200}
                                 height={200}
                               />
-                            )}
-                          </div>
-                        )}
+                              {project.images[1] && (
+                                <Image
+                                  src={getImageSrc(project.images[1])}
+                                  alt={`${project.title} main image`}
+                                  className="object-cover rounded-lg shadow-lg aspect-9/16 rotate-12 right-7 top-20 group-hover:top-0 group-hover:right-0 duration-200 transition-all relative"
+                                  width={200}
+                                  height={200}
+                                />
+                              )}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
           )}
         </div>

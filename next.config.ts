@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
                 protocol: 'https',
                 hostname: 'my-home-rho-one.vercel.app',
             },
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+            },
         ],
     },
 };

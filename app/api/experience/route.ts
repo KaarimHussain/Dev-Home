@@ -1,101 +1,79 @@
 import { NextResponse } from 'next/server';
-import { db } from "../database";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
 
 export async function GET() {
-    return new Promise<NextResponse>((resolve) => {
-        db.all("SELECT * FROM experiences", (err, rows: any[]) => {
-            if (err) {
-                resolve(NextResponse.json({ error: err.message }, { status: 500 }));
-            } else {
-                const parsedRows = rows.map(row => ({
-                    ...row,
-                    achievements: JSON.parse(row.achievements),
-                    technologies: JSON.parse(row.technologies),
-                    current: Boolean(row.current)
-                }));
-                resolve(NextResponse.json(parsedRows));
-            }
+    try {
+        const querySnapshot = await getDocs(collection(db, "experiences"));
+        const data = querySnapshot.docs.map(doc => {
+            const d = doc.data();
+            return {
+                id: doc.id,
+                ...d,
+                // Firestore stores arrays and booleans natively, no need to parse if stored correctly.
+                // Ensuring we handle potential migration cases or raw data correctly.
+                achievements: d.achievements,
+                technologies: d.technologies,
+                current: d.current
+            };
         });
-    });
+        return NextResponse.json(data);
+    } catch (error: any) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 }
 
 export async function POST(request: Request) {
     try {
         const { company, position, location, duration, type, description, achievements, technologies, current } = await request.json();
-        return new Promise<NextResponse>((resolve) => {
-            const stmt = db.prepare("INSERT INTO experiences (company, position, location, duration, type, description, achievements, technologies, current) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            stmt.run(
-                company,
-                position,
-                location,
-                duration,
-                type,
-                description,
-                JSON.stringify(achievements),
-                JSON.stringify(technologies),
-                current ? 1 : 0,
-                function (err: any) {
-                    if (err) {
-                        resolve(NextResponse.json({ error: err.message }, { status: 500 }));
-                    } else {
-                        // @ts-ignore
-                        resolve(NextResponse.json({ id: this.lastID, success: true }));
-                    }
-                }
-            );
-            stmt.finalize();
+
+        // Ensure arrays are arrays (if they came as strings in JSON? usually request.json() parses them)
+        // If the client sends them, they are likely arrays.
+
+        const docRef = await addDoc(collection(db, "experiences"), {
+            company,
+            position,
+            location,
+            duration,
+            type,
+            description,
+            achievements, // Store as array
+            technologies, // Store as array
+            current: Boolean(current) // Store as boolean
         });
-    } catch (error) {
-        return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+        return NextResponse.json({ id: docRef.id, success: true });
+    } catch (error: any) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
 
 export async function PUT(request: Request) {
     try {
         const { id, company, position, location, duration, type, description, achievements, technologies, current } = await request.json();
-        return new Promise<NextResponse>((resolve) => {
-            const stmt = db.prepare("UPDATE experiences SET company = ?, position = ?, location = ?, duration = ?, type = ?, description = ?, achievements = ?, technologies = ?, current = ? WHERE id = ?");
-            stmt.run(
-                company,
-                position,
-                location,
-                duration,
-                type,
-                description,
-                JSON.stringify(achievements),
-                JSON.stringify(technologies),
-                current ? 1 : 0,
-                id,
-                function (err: any) {
-                    if (err) {
-                        resolve(NextResponse.json({ error: err.message }, { status: 500 }));
-                    } else {
-                        resolve(NextResponse.json({ success: true }));
-                    }
-                }
-            );
-            stmt.finalize();
+        const docRef = doc(db, "experiences", id);
+        await updateDoc(docRef, {
+            company,
+            position,
+            location,
+            duration,
+            type,
+            description,
+            achievements,
+            technologies,
+            current: Boolean(current)
         });
-    } catch (error) {
-        return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+        return NextResponse.json({ success: true });
+    } catch (error: any) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
 
 export async function DELETE(request: Request) {
     try {
         const { id } = await request.json();
-        return new Promise<NextResponse>((resolve) => {
-            const stmt = db.prepare("DELETE FROM experiences WHERE id = ?");
-            stmt.run(id, function (err: any) {
-                if (err) {
-                    resolve(NextResponse.json({ error: err.message }, { status: 500 }));
-                } else {
-                    resolve(NextResponse.json({ success: true }));
-                }
-            });
-            stmt.finalize();
-        });
-    } catch (error) {
-        return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+        await deleteDoc(doc(db, "experiences", id));
+        return NextResponse.json({ success: true });
+    } catch (error: any) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }

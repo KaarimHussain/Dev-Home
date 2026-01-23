@@ -122,7 +122,7 @@ export default function Contact() {
                             />
                         </div>
                         <div className="flex flex-col gap-2">
-                            <Label htmlFor="phone">Phone</Label>
+                            <Label htmlFor="subject">Subject</Label>
                             <Input
                                 id="subject"
                                 name="subject"

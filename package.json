@@ -16,6 +16,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
+    "firebase": "^12.8.0",
     "gsap": "^3.13.0",
     "jose": "^6.1.3",
     "lucide-react": "^0.555.0",
@@ -26,8 +27,6 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "sonner": "^2.0.7",
-    "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {

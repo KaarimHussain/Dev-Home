@@ -6,7 +6,7 @@ import NodeJs from "@/public/svgs/NodeJs.svg";
 import Express from "@/public/svgs/Express.svg";
 import DotNet from "@/public/svgs/Dotnet.svg";
 import MongoDb from "@/public/svgs/MongoDb.svg";
-
+import NextJs from "@/public/svgs/NextJs.svg";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { useState } from "react";
@@ -19,13 +19,14 @@ import {
 
 
 export default function Hero() {
-    const [isHovering, setIsHovering] = useState(false);
+    const [, setIsHovering] = useState(false);
 
     const TechStackIcons = [
         { icon: React, name: "React" },
         { icon: NodeJs, name: "Node.js" },
         { icon: Express, name: "Express" },
         { icon: MongoDb, name: "MongoDB" },
+        { icon: NextJs, name: "Next.js" },
         { icon: DotNet, name: ".NET" }
     ]
 
@@ -151,7 +152,7 @@ export default function Hero() {
                         className="text-secondary-foreground/80 text-sm md:text-xl font-medium flex items-center gap-2"
                         variants={subtitleVariants}
                     >
-                        Software engineer and CS student who just loves building things.
+                        A Fullstack Developer & CS Student who just loves building things.
                     </motion.p>
 
                     {/* Tech Stack with Individual Tooltips */}

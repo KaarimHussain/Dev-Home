@@ -11,7 +11,8 @@ import {
     LogOut,
     UserCircle,
     Briefcase,
-    Image as ImageIcon
+    Image as ImageIcon,
+    Trophy
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -26,6 +27,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         { label: "Media", href: "/admin/media", icon: ImageIcon },
         { label: "Tech Stack", href: "/admin/techstack", icon: Layers },
         { label: "Projects", href: "/admin/projects", icon: FolderKanban },
+        { label: "Achievements", href: "/admin/achievements", icon: Trophy },
         { label: "Contact", href: "/admin/contact", icon: Contact },
         { label: "Resume", href: "/admin/resume", icon: FileText },
         { label: "Experience", href: "/admin/experience", icon: Briefcase },
