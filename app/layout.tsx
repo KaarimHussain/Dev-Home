@@ -42,6 +42,7 @@ export const metadata: Metadata = {
     "Custom Software Development",
     "Mobile App Development",
     "Scalable Web Applications",
+    "Next JS Developer",
   ],
   creator: "Kaarim Hussain",
   icons: {
