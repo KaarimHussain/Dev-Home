@@ -3,9 +3,16 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { Award, Calendar, ExternalLink, Trophy, ShieldCheck, Sparkles, TrendingUp } from "lucide-react";
+import { Award, Calendar, ExternalLink, Trophy, ShieldCheck, Sparkles, TrendingUp, X } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription,
+} from "../ui/dialog";
 
 // Interface for Achievement
 interface Achievement {
@@ -28,6 +35,7 @@ export default function Achievements() {
     });
     const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0]);
     const [achievements, setAchievements] = useState<Achievement[]>([]);
+    const [selectedAchievement, setSelectedAchievement] = useState<Achievement | null>(null);
 
     useEffect(() => {
         const fetchAchievements = async () => {
@@ -132,7 +140,10 @@ export default function Achievements() {
                             viewport={{ once: true }}
                             className="md:col-span-4"
                         >
-                            <div className="rounded-3xl h-full min-h-[280px] p-8 flex flex-col justify-between bg-white border border-gray-100 shadow-lg hover:shadow-xl hover:border-primary/30 transition-all duration-300 group">
+                            <div
+                                onClick={() => setSelectedAchievement(item)}
+                                className="rounded-3xl h-full min-h-[280px] p-8 flex flex-col justify-between bg-white border border-gray-100 shadow-lg hover:shadow-xl hover:border-primary/30 transition-all duration-300 group cursor-pointer"
+                            >
                                 <div>
                                     <div className="flex items-center justify-between mb-6">
                                         <div className="p-3 bg-gray-50 rounded-xl group-hover:bg-primary/10 transition-colors">
@@ -182,6 +193,73 @@ export default function Achievements() {
                     </div>
 
                 </div>
+
+                {/* Achievement Details Dialog */}
+                <Dialog open={!!selectedAchievement} onOpenChange={(open) => !open && setSelectedAchievement(null)}>
+                    <DialogContent className="sm:max-w-2xl p-0 overflow-hidden bg-white border-gray-200">
+                        {selectedAchievement && (
+                            <>
+                                {/* Image Header */}
+                                <div className="relative w-full h-56 sm:h-72">
+                                    <Image
+                                        src={selectedAchievement.image}
+                                        alt={selectedAchievement.title}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
+
+                                    {/* Stats Badge */}
+                                    <div className="absolute bottom-4 left-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-medium">
+                                        <Trophy className="w-4 h-4 text-amber-400" />
+                                        {selectedAchievement.stats}
+                                    </div>
+                                </div>
+
+                                {/* Content */}
+                                <div className="p-6 pt-4">
+                                    <DialogHeader className="mb-4">
+                                        <DialogTitle className="text-2xl font-bold text-gray-900 leading-tight">
+                                            {selectedAchievement.title}
+                                        </DialogTitle>
+                                        <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-gray-500">
+                                            <div className="flex items-center gap-1.5">
+                                                <Award className="w-4 h-4 text-primary" />
+                                                <span>{selectedAchievement.organization}</span>
+                                            </div>
+                                            <span className="w-1 h-1 rounded-full bg-gray-300" />
+                                            <div className="flex items-center gap-1.5">
+                                                <Calendar className="w-4 h-4 text-gray-400" />
+                                                <span>{selectedAchievement.date}</span>
+                                            </div>
+                                        </div>
+                                    </DialogHeader>
+
+                                    <DialogDescription asChild>
+                                        <div className="space-y-4">
+                                            <p className="text-gray-600 text-base leading-relaxed">
+                                                {selectedAchievement.description}
+                                            </p>
+
+                                            {/* Credential Link */}
+                                            {selectedAchievement.credentialLink && (
+                                                <Link
+                                                    href={selectedAchievement.credentialLink}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium text-sm transition-colors group"
+                                                >
+                                                    <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                                    View Credential
+                                                </Link>
+                                            )}
+                                        </div>
+                                    </DialogDescription>
+                                </div>
+                            </>
+                        )}
+                    </DialogContent>
+                </Dialog>
             </div>
         </section>
     );

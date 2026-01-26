@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { ArrowRight, X, Filter, Tag } from "lucide-react";
+import { ArrowRight, X, Filter, Tag, Github, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { motion, Variants } from "motion/react";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 interface Project {
   id: number;
@@ -144,8 +145,8 @@ export default function ProjectsPage() {
                       aria-pressed={selectedTypes.includes(type)}
                       aria-label={`Filter by ${type} type`}
                       className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${selectedTypes.includes(type)
-                          ? "bg-primary text-primary-foreground shadow-md scale-105"
-                          : "bg-background border border-border text-foreground hover:bg-accent hover:border-primary/50 hover:scale-105"
+                        ? "bg-primary text-primary-foreground shadow-md scale-105"
+                        : "bg-background border border-border text-foreground hover:bg-accent hover:border-primary/50 hover:scale-105"
                         }`}
                     >
                       {type}
@@ -173,8 +174,8 @@ export default function ProjectsPage() {
                       aria-pressed={selectedTags.includes(tag)}
                       aria-label={`Filter by ${tag} tag`}
                       className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${selectedTags.includes(tag)
-                          ? "bg-primary text-primary-foreground shadow-md scale-105"
-                          : "bg-background border border-border text-foreground hover:bg-accent hover:border-primary/50 hover:scale-105"
+                        ? "bg-primary text-primary-foreground shadow-md scale-105"
+                        : "bg-background border border-border text-foreground hover:bg-accent hover:border-primary/50 hover:scale-105"
                         }`}
                     >
                       {tag}
@@ -322,6 +323,35 @@ export default function ProjectsPage() {
                   </Link>
                 );
               })}
+
+              <hr />
+
+              <div className="mt-24 pb-10">
+                <div className="relative rounded-2xl overflow-hidden bg-secondary/5 border border-border p-8 md:p-12 text-center">
+                  <div className="absolute inset-0 bg-linear-to-r from-primary/5 via-transparent to-primary/5 pointer-events-none" />
+
+                  <div className="relative z-10 flex flex-col items-center max-w-2xl mx-auto space-y-6">
+                    <div className="p-3 bg-background rounded-full border border-border shadow-xs">
+                      <Github className="w-8 h-8 text-primary" />
+                    </div>
+
+                    <div className="space-y-2">
+                      <h3 className="text-2xl md:text-3xl font-bold">Want to see more?</h3>
+                      <p className="text-muted-foreground text-base md:text-lg">
+                        Check out my GitHub profile for experimental projects, contributions, and more source code.
+                      </p>
+                    </div>
+
+                    <Link href="https://github.com/KaarimHussain/" target="_blank">
+                      <Button size="lg" className="cursor-pointer rounded-full px-8 gap-2 hover:scale-105 transition-transform duration-200">
+                        <Github className="w-4 h-4" />
+                        Visit GitHub Profile
+                        <ExternalLink className="w-3 h-3 opacity-50 ml-1" />
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>
