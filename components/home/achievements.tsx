@@ -25,10 +25,7 @@ export default function Achievements() {
         target: containerRef,
         offset: ["start end", "end start"],
     });
-
-    const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
     const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0]);
-
     const [achievements, setAchievements] = useState<Achievement[]>([]);
 
     useEffect(() => {
@@ -45,17 +42,6 @@ export default function Achievements() {
         fetchAchievements();
     }, []);
 
-    const getImageSrc = (src: string) => {
-        if (src && (src.startsWith('http://localhost') || src.startsWith('http://127.0.0.1'))) {
-            try {
-                const url = new URL(src);
-                return url.pathname + url.search;
-            } catch (e) {
-                return src;
-            }
-        }
-        return src;
-    };
 
     return (
         <section ref={containerRef} className="min-h-screen w-full bg-white relative py-20 px-5 md:px-10 lg:px-20 overflow-hidden">
@@ -100,7 +86,7 @@ export default function Achievements() {
                             <div className="group relative rounded-3xl h-full min-h-[500px] flex flex-col overflow-hidden bg-white border border-gray-100 shadow-xl hover:shadow-2xl transition-all duration-300">
                                 <div className="absolute inset-0 z-0">
                                     <Image
-                                        src={getImageSrc(item.image)}
+                                        src={item.image}
                                         alt={item.title}
                                         fill
                                         className="object-cover transition-transform duration-700 group-hover:scale-105"

@@ -101,7 +101,7 @@ export default function About() {
             <h2 className="lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-semibold text-black/90 leading-tight pl-6">
               A{" "}
               <span className="text-primary font-light italic relative inline-block">
-                Software Engineer
+                Computer Science Student
                 <motion.span
                   className="absolute bottom-1 left-0 h-1 bg-primary/30 rounded-full"
                   initial={{ width: 0 }}
@@ -109,8 +109,8 @@ export default function About() {
                   transition={{ duration: 0.8, delay: 0.4 }}
                 />
               </span>{" "}
-              who loves building clean, scalable apps and making sure everything
-              runs smoothly behind the scenes.
+              who loves exploring new technologies and building impactful
+              projects that solve real-world problems.
             </h2>
           </motion.div>
         </motion.div>
