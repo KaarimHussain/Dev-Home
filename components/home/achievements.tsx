@@ -5,6 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { Award, Calendar, ExternalLink, Trophy, ShieldCheck, Sparkles, TrendingUp } from "lucide-react";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 // Interface for Achievement
 interface Achievement {
@@ -172,9 +173,11 @@ export default function Achievements() {
                         <div className="relative z-10 flex flex-col h-full justify-center text-center items-center">
                             <h3 className="text-2xl font-bold text-white mb-2">View Credentials</h3>
                             <p className="text-white/80 text-sm mb-6">Verify all certifications on LinkedIn</p>
-                            <Button className="bg-white text-primary hover:bg-white/90 rounded-full w-full font-semibold">
-                                Visit LinkedIn
-                            </Button>
+                            <Link href={"https://www.linkedin.com/in/kaarim-hussain-bb2559270"}>
+                                <Button className="bg-white text-primary hover:bg-white/90 rounded-full w-full font-semibold">
+                                    Visit LinkedIn
+                                </Button>
+                            </Link>
                         </div>
                     </div>
 
