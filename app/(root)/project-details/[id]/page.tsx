@@ -1,5 +1,6 @@
 import { db } from "@/lib/firebase"
 import { doc, getDoc } from "firebase/firestore"
+import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
@@ -42,6 +43,30 @@ async function getProject(id: string): Promise<Project | undefined> {
         console.error("Error fetching project:", e);
         return undefined;
     }
+}
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ id: string }>
+}): Promise<Metadata> {
+    const { id } = await params
+    const project = await getProject(id);
+
+    if (!project) {
+        return {
+            title: "Project Not Found",
+            description: "The requested project references a non-existent ID.",
+        };
+    }
+
+    return {
+        title: `${project.title} - Project Details`,
+        description: project.description,
+        openGraph: {
+            images: project.images || [],
+        },
+    };
 }
 
 export default async function ProjectDetails({

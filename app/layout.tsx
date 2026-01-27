@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
+import JsonLd from "@/components/JsonLd";
 
 const geistSans = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",
@@ -45,6 +46,9 @@ export const metadata: Metadata = {
     "Next JS Developer",
   ],
   creator: "Kaarim Hussain",
+  alternates: {
+    canonical: "https://my-home-rho-one.vercel.app",
+  },
   icons: {
     icon: "/images/Logo-White.png",
     shortcut: "/images/Logo-White.png",
@@ -97,6 +101,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
       >
+        <JsonLd />
         <Toaster />
         {children}
       </body>

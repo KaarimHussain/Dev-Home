@@ -9,7 +9,7 @@ import Techstack from "@/components/home/techstack";
 export default function Home() {
   return (
     <>
-      <div className="min-h-screen w-full bg-background">
+      <main className="min-h-screen w-full bg-background">
         <Hero />
         <AboutMe />
         <Techstack />
@@ -17,7 +17,7 @@ export default function Home() {
         <Experience />
         <Achievements />
         <Contact />
-      </div>
+      </main>
     </>
   );
 }
