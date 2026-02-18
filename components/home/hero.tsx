@@ -136,7 +136,7 @@ export default function Hero() {
                         onHoverStart={() => setIsHovering(true)}
                         onHoverEnd={() => setIsHovering(false)}
                     >
-                        Hi! I'am <br />
+                        Hi! I am <br />
                         <span className="font-light transition-all duration-200 hover:font-bold relative inline-block group cursor-default text-primary">
                             Kaarim Hussain.
                             <motion.span
